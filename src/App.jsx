@@ -1,11 +1,25 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { getProjects, getProjectById } from './utils/api/projects'
+import axios from 'axios'
 
 function App() {
   const [count, setCount] = useState(0)
+  const [projects, setProjects] = useState([]);
 
+useEffect(() => {
+  const fetchAllProjects = async () => {
+
+    const response = await axios.get('https://pmkzbb1zs8.execute-api.eu-central-1.amazonaws.com/prod/projects');
+    console.log(response.data);
+
+  };
+
+  fetchAllProjects();
+}, []);
+  
   return (
     <>
       <div>
@@ -28,6 +42,17 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+      <div>
+        {
+          projects?.map(project => (
+            <div key={project.id}>
+              <p>{project.id}</p>
+              <p>{project.title}</p>
+              <p>{project.description}</p>
+            </div>
+          ))
+        }
+      </div>
     </>
   )
 }
