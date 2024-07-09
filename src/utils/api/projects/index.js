@@ -4,11 +4,10 @@ const API_BASE_URL = 'https://pmkzbb1zs8.execute-api.eu-central-1.amazonaws.com/
 
 export const getProjects = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/projects`);
-    if (!response.ok) {
+    const { data } = await axios.get(`${API_BASE_URL}/projects`);
+    if (data.length === 0) {
       throw new Error('Failed to fetch projects');
     }
-    const data = await response.json();
     return data;
   } catch (error) {
     console.error(error);
@@ -18,11 +17,10 @@ export const getProjects = async () => {
 
 export const getProjectById = async (id) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/projects/${id}`);
-    if (!response.ok) {
+    const { data } = await axios.get(`${API_BASE_URL}/projects/${id}`);
+    if (!data) {
       throw new Error('Failed to fetch project');
     }
-    const data = await response.json();
     return data;
   } catch (error) {
     console.error(error);
