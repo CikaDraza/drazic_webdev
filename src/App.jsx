@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import ProjectCarousel from './components/ProjectCarousel';
 import PreLoader from './components/PreLoader';
 import gsap from 'gsap';
+import BackOffice from './components/BackOfficeComponent';
 
 function App() {
   useEffect(() => {
@@ -244,6 +245,11 @@ function App() {
               </div>
             </div>
             <ProjectCarousel />
+        </div>
+      </section>
+      <section id='customize-projects'>
+        <div className="container">
+          <BackOffice />
         </div>
       </section>
     </>

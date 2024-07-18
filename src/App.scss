@@ -188,7 +188,10 @@ section#services {
 
 section#projects {
   background-color: #2C2C2C;
-  padding: 5rem 3rem;
+  padding: 5rem 0;
+  .row {
+    margin-bottom: 1rem;
+  }
   .nav-project {
     nav {
       ul {
@@ -214,14 +217,20 @@ section#projects {
     display: flex;
     align-items: center;
     button {
-      padding: 0;
+      padding: .25rem;
       margin: 0;
-      width: 30px;
-      height: 30px;
+      width: 35px;
+      height: 35px;
       background-color: #444;
       border-radius: 50%;
       cursor: pointer;
       border: none;
+      box-sizing: border-box;
+    }
+  }
+  .slick-disabled {
+    button {
+      opacity: .3;
     }
   }
 }
@@ -244,9 +253,96 @@ section#projects {
   list-style: none;
   display: flex!important;
   justify-content: center;
+  margin-top: 3rem;
   .slick-active .dot {
     background-color: #FFB633!important;
   }
+}
+
+.slick-slide {
+  display: flex;
+  justify-content: space-between;
+  & div {
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+  }
+}
+
+.slider-card {
+  border-radius: 1rem;
+  box-sizing: border-box;
+  height: 500px;
+  display: flex!important;
+  flex-wrap: wrap;
+  align-items: stretch;
+  .slider-card__card-media {
+    height: 50%;
+    max-height: 50%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    box-sizing: border-box;
+    .logo {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0;
+    }
+    .project-image {
+      height: 100%;
+      max-height: 100%;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+      display: block;
+      box-sizing: border-box;
+      object-fit: cover;
+      img {
+        display: block;
+        margin: auto;
+        object-fit: cover;
+        max-height: 100%;
+      }
+    }
+  }
+  .slider-card__card-content {
+    margin: auto;
+    text-align: center;
+  }
+  .slider-card__card-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    button {
+      border: thin solid #f4f4f4;
+      border-radius: .25rem;
+      background-color: transparent;
+      padding: .5rem .75rem;
+      color: #f4f4f4;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+    .btn-preview {
+      background-color: #f4f4f4;
+      color: black;
+    }
+  }
+}
+
+.bg-card-0 {
+  background: linear-gradient(90deg, #363636, #474747);
+}
+
+.bg-card-1 {
+  background: linear-gradient(90deg, #06799C, #36CFFF);
+}
+
+.bg-card-2 {
+  background: linear-gradient(90deg, #EE9900, #FFBD47);
+}
+
+.bg-card-3 {
+  background: linear-gradient(90deg, #33CB86, #65FFB9);
 }
 
 .slick-arrow {
@@ -256,6 +352,10 @@ section#projects {
   .slick-next {
 
   }
+}
+
+.back-office {
+  overflow-x: scroll;
 }
 
 @keyframes logo-spin {

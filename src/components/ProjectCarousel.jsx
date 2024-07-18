@@ -10,7 +10,11 @@ const NextArrow = (props) => {
       onClick={onClick}
     >
       {/* Custom Content */}
-      <button>&#9654;</button>
+      <button>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#f4f4f4" className="size-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+        </svg>
+      </button>
     </div>
   );
 };
@@ -23,7 +27,11 @@ const PrevArrow = (props) => {
       onClick={onClick}
     >
       {/* Custom Content */}
-      <button>&#9664;</button>
+      <button>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#f4f4f4" className="size-6">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+        </svg>
+      </button>
     </div>
   );
 };
@@ -45,7 +53,7 @@ export default function ProjectCarousel() {
     infinite: false,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 2,
+    slidesToScroll: 3,
     initialSlide: 0,
     swipeToSlide: true,
     customPaging: i => (
@@ -97,20 +105,29 @@ export default function ProjectCarousel() {
     <div className='slider-container'>
       <Slider {...settings}>
         {
-          projects?.map(project => (
-            <div className='card' key={project.id}>
-              <div className="card-media">
-                <img src="/image/image.jpg" alt="alt" />
+          projects?.map((project, i) => (
+            <div className={`slider-card bg-card-${i % 4}`} key={project.id}>
+              <div className="slider-card__card-media">
+                <div className="logo">
+                  <img width={'auto'} height={'25px'} src={`/project_logo-${i % 2}.svg`} alt="alt" />
+                </div>
+                <div className="project-image">
+                  <img width={'auto'} height={'100%'} src={`/project_image-${i % 2}.png`} alt="alt" />
+                </div>
               </div>
-              <div className="card-content">
+              <div className="slider-card__card-content">
                 <h3>{project.title}</h3>
                 <p className="card-description">
                   {project.description}
                 </p>
               </div>
-              <div className="card-actions">
-                <button className="btn-preview">Preview</button>
-                <button className="btn-view-code">GitHub Code</button>
+              <div className="slider-card__card-actions">
+                <a href="#">
+                  <button className="btn-preview">Live Preview</button>
+                </a>
+                <a href="#">
+                  <button className="btn-view-code">GitHub Code</button>
+                </a>
               </div>
             </div>
           ))
