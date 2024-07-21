@@ -37,7 +37,7 @@ const PrevArrow = (props) => {
 };
 
 export default function ProjectCarousel() {
-  const [projects, setProjects] = useState([]);
+  const [projects, setProjects] = useState([]);  
 
   useEffect(() => {
     const fetchAllProjects = async () => {
@@ -106,13 +106,13 @@ export default function ProjectCarousel() {
       <Slider {...settings}>
         {
           projects?.map((project, i) => (
-            <div className={`slider-card bg-card-${i % 4}`} key={project.id}>
+            <div className={`slider-card ${project?.colors}`} key={project.id}>
               <div className="slider-card__card-media">
                 <div className="logo">
-                  <img width={'auto'} height={'25px'} src={`/project_logo-${i % 2}.svg`} alt="alt" />
+                  <img width={'auto'} height={'25px'} src={project?.logo_url} alt="Project Logo" />
                 </div>
                 <div className="project-image">
-                  <img width={'auto'} height={'100%'} src={`/project_image-${i % 2}.png`} alt="alt" />
+                  <img width={'auto'} height={'100%'} src={project?.image_url} alt={project?.title} />
                 </div>
               </div>
               <div className="slider-card__card-content">
@@ -122,10 +122,10 @@ export default function ProjectCarousel() {
                 </p>
               </div>
               <div className="slider-card__card-actions">
-                <a href="#">
+                <a href={project?.live_preview_url} target="_blank">
                   <button className="btn-preview">Live Preview</button>
                 </a>
-                <a href="#">
+                <a href={project?.github_url} target="_blank">
                   <button className="btn-view-code">GitHub Code</button>
                 </a>
               </div>

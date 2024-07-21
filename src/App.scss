@@ -294,7 +294,8 @@ section#projects {
       max-height: 100%;
       padding-top: 1rem;
       padding-bottom: 1rem;
-      display: block;
+      display: flex;
+      align-items: center;
       box-sizing: border-box;
       object-fit: cover;
       img {
@@ -329,29 +330,20 @@ section#projects {
   }
 }
 
-.bg-card-0 {
+.black {
   background: linear-gradient(90deg, #363636, #474747);
 }
 
-.bg-card-1 {
+.blue {
   background: linear-gradient(90deg, #06799C, #36CFFF);
 }
 
-.bg-card-2 {
+.yellow {
   background: linear-gradient(90deg, #EE9900, #FFBD47);
 }
 
-.bg-card-3 {
+.green {
   background: linear-gradient(90deg, #33CB86, #65FFB9);
-}
-
-.slick-arrow {
-  .slick-prev {
-
-  }
-  .slick-next {
-
-  }
 }
 
 .back-office {

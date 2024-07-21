@@ -50,18 +50,11 @@ export const createProject = async (project) => {
 
 export const updateProject = async (id, project) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(project),
-    });
-    if (!response.ok) {
+    const response = await axios.put(`${API_BASE_URL}/projects/${id}`, project);
+    if (!response.data) {
       throw new Error('Failed to update project');
     }
-    const data = await response.json();
-    return data;
+    return response.data;
   } catch (error) {
     console.error(error);
     return null;
