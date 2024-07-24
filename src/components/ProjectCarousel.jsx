@@ -122,10 +122,10 @@ export default function ProjectCarousel() {
                 </p>
               </div>
               <div className="slider-card__card-actions">
-                <a href={project?.live_preview_url} target="_blank">
+                <a className="link-preview" href={project?.live_preview_url} target="_blank">
                   <button className="btn-preview">Live Preview</button>
                 </a>
-                <a href={project?.github_url} target="_blank">
+                <a className='link-view-code' href={project?.github_url} target="_blank">
                   <button className="btn-view-code">GitHub Code</button>
                 </a>
               </div>

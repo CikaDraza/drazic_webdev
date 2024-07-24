@@ -6,11 +6,12 @@ const BackOffice = () => {
   const [editId, setEditId] = useState(null);
   const [editProject, setEditProject] = useState(null);
 
+  const fetchProjects = async () => {
+    const fetchedProjects = await getProjects();
+    setProjects(fetchedProjects);
+  };
+
   useEffect(() => {
-    const fetchProjects = async () => {
-      const fetchedProjects = await getProjects();
-      setProjects(fetchedProjects);
-    };
     fetchProjects();
   }, []);
 
@@ -40,7 +41,7 @@ const BackOffice = () => {
 
       const response = await updateProject(editId, updatedProject);
       if (response) {
-        setProjects(projects.map(project => (project.id === editId ? response : project)));
+        fetchProjects();
         setEditId(null);
         setEditProject(null);
       } else {
@@ -60,10 +61,9 @@ const BackOffice = () => {
   };  
 
   const handleCreate = async () => {
-    console.log(editProject);
     const newProject = await createProject(editProject);
     if (newProject) {
-      setProjects([...projects, newProject]);
+      fetchProjects();
       setEditId(null);
       setEditProject(null);
     }
@@ -92,7 +92,8 @@ const BackOffice = () => {
               <td>{editId === project.id ? <input type="text" name="description" value={editProject?.description} onChange={handleChange} /> : project.description}</td>
               <td>
                 {editId === project.id ? (
-                  <select name="category" value={editProject?.category || 'Web app'} onChange={handleChange}>
+                  <select name="category" value={editProject?.category || ''} onChange={handleChange}>
+                    <option value="">Add Category</option>
                     <option value="Web app">Web App</option>
                     <option value="Mobile app">Mobile App</option>
                     <option value="E-commerce">E-commerce</option>
@@ -113,13 +114,13 @@ const BackOffice = () => {
               <td>
                 {editId === project.id ? (
                   <>
-                    <button onClick={handleUpdate}>Save</button>
-                    <button onClick={handleCancel}>Cancel</button>
+                    <button className='action-btns save-btn' onClick={handleUpdate}>Save</button>
+                    <button className='action-btns cancel-btn' onClick={handleCancel}>Cancel</button>
                   </>
                 ) : (
                   <>
-                    <button onClick={() => handleEdit(project)}>Edit</button>
-                    <button onClick={() => handleDelete(project.id)}>Delete</button>
+                    <button className='action-btns edit-btn' onClick={() => handleEdit(project)}>Edit</button>
+                    <button className='action-btns delete-btn' onClick={() => handleDelete(project.id)}>Delete</button>
                   </>
                 )}
               </td>
@@ -130,7 +131,8 @@ const BackOffice = () => {
               <td><input type="text" name="title" value={editProject?.title || ''} onChange={handleChange} placeholder="Title" /></td>
               <td><input type="text" name="description" value={editProject?.description || ''} onChange={handleChange} placeholder="Description" /></td>
               <td>
-                <select name="category" value={editProject?.category || 'Web app'} onChange={handleChange}>
+                <select name="category" value={editProject?.category || ''} onChange={handleChange}>
+                  <option value="">Add Category</option>
                   <option value="Web app">Web App</option>
                   <option value="Mobile app">Mobile App</option>
                   <option value="E-commerce">E-commerce</option>
@@ -144,7 +146,7 @@ const BackOffice = () => {
               <td><input type="text" name="live_preview_url" value={editProject?.live_preview_url || ''} onChange={handleChange} placeholder='Project URL' /></td>
               <td><input type='text' name='github_url' value={editProject?.github_url || ''} onChange={handleChange} placeholder='GitHub URL' /></td>
               <td>
-                <button onClick={handleCreate}>Save</button>
+                <button className='action-btns save-btn action-btns--create' onClick={handleCreate}>Save</button>
               </td>
             </tr>
           )}
