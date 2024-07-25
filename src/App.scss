@@ -63,6 +63,11 @@ header {
             margin: .5rem;
             padding-left: 1rem;
             border-radius: .5rem;
+            li {
+              a {
+                font-size: .75rem;
+              }
+            }
           }
         }
       }
@@ -438,6 +443,56 @@ section#projects {
 
 .purple {
   background: linear-gradient(90deg, #B276E6, #c889ff);
+}
+
+.login-dialog {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba($color: #000000, $alpha: .7);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  .login-dialog-content {
+    width: 300px;
+    height: auto;
+    background-color: #f4f4f4;
+    border-radius: .5rem;
+    padding: 3rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    .close-btn {
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+    }
+    h3 {
+      width: 100%;
+      color: #2C2C2C;
+      margin-bottom: 1rem;
+      padding-bottom: .5rem;
+      border-bottom: thin solid #888;
+    }
+    input {
+      width: 100%;
+      margin-bottom: .5rem;
+      border: none;
+      padding: .5rem .25rem;
+      border-radius: .5rem;
+    }
+    .login-btn {
+      width: 100%;
+      border: none;
+      background-color: #36CFFF;
+      padding: .5rem 2rem;
+      border-radius: .5rem;
+    }
+  }
 }
 
 .back-office {
