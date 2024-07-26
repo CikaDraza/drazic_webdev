@@ -20,9 +20,9 @@ function App() {
         email,
         password
       });
-      console.log('Login successful:', data);
       alert('Login successful');
       setShowLogin(false);
+      setShowMenu(false);
       localStorage.setItem('token', data.token);
       setIsLoggedIn(true);
     } catch (error) {

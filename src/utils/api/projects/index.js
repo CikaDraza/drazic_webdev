@@ -2,6 +2,14 @@ import axios from "axios";
 
 const API_BASE_URL = 'https://pmkzbb1zs8.execute-api.eu-central-1.amazonaws.com/prod';
 
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('token');
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`,
+  };
+};
+
 export const getProjects = async () => {
   try {
     const { data } = await axios.get(`${API_BASE_URL}/projects`);
@@ -32,9 +40,7 @@ export const createProject = async (project) => {
   try {
     const response = await fetch(`${API_BASE_URL}/projects`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: getAuthHeaders(),
       body: JSON.stringify(project),
     });
     if (!response.ok) {
@@ -48,9 +54,16 @@ export const createProject = async (project) => {
   }
 };
 
+const token = localStorage.getItem('token');
+
 export const updateProject = async (id, project) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/projects/${id}`, project);
+    const response = await axios.put(`${API_BASE_URL}/projects/${id}`, project, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    });
     if (!response.data) {
       throw new Error('Failed to update project');
     }
@@ -65,6 +78,7 @@ export const deleteProject = async (id) => {
   try {
     const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
       method: 'DELETE',
+      headers: getAuthHeaders(),
     });
     if (!response.ok) {
       throw new Error('Failed to delete project');
