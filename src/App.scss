@@ -81,7 +81,7 @@ header {
 }
 
 .left {
-  width: 0%; // Start with 0 width for animation
+  width: 0%;
   flex: 0 0 0%;
   max-width: 0%;
   height: 100%;
@@ -112,7 +112,7 @@ header {
   position: relative;
   flex: 0 0 25%;
   max-width: 25%;
-  left: -100%; // Start off-screen to the left
+  left: -100%;
 }
 
 .caption h2 {
@@ -485,12 +485,22 @@ section#projects {
       padding: .5rem .25rem;
       border-radius: .5rem;
     }
+    .close-btn {
+      cursor: pointer;
+      &:hover {
+        background-color: #EF59BC;
+      }
+    }
     .login-btn {
       width: 100%;
       border: none;
       background-color: #36CFFF;
       padding: .5rem 2rem;
       border-radius: .5rem;
+      cursor: pointer;
+      &:hover {
+        background-color: #11bcf0;
+      }
     }
   }
 }

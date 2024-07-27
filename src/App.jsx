@@ -4,7 +4,6 @@ import PreLoader from './components/PreLoader';
 import gsap from 'gsap';
 import BackOffice from './components/BackOfficeComponent';
 import LoginDialog from './components/LoginDialog';
-import { loginUser } from './utils/api/login';
 import axios from 'axios';
 
 function App() {
@@ -30,7 +29,6 @@ function App() {
     }
   };
   
-  // Usage in a form submit handler or similar
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formOutput = new FormData(event.currentTarget);
@@ -49,6 +47,12 @@ function App() {
       setIsLoggedIn(true);
     }
   }, []);
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    localStorage.removeItem('token');
+    alert('Logout successful');
+  }
 
   useEffect(() => {
     const timeline = gsap.timeline({ delay: 2.2 });
@@ -132,9 +136,16 @@ function App() {
                     <ul>
                       <li><a href="#services">Services</a></li>
                       <li><a href="#projects">Projects</a></li>
-                      <li>
-                        <a href="#" onClick={() => setShowLogin(true)}>Log in</a>
-                      </li>
+                      {
+                        !isLoggedIn ?
+                        <li>
+                          <a href="#" onClick={() => setShowLogin(true)}>Log in</a>
+                        </li>
+                        :
+                        <li>
+                          <a href="#" onClick={handleLogout}>Logout</a>
+                        </li>
+                      }
                     </ul>
                   </nav>
                 }

@@ -50,6 +50,8 @@ export const createProject = async (project) => {
     return data;
   } catch (error) {
     console.error(error);
+    localStorage.removeItem('token');
+    alert('Please login again');
     return null;
   }
 };
@@ -57,20 +59,20 @@ export const createProject = async (project) => {
 export const updateProject = async (id, project) => {
   try {
     const token = localStorage.getItem('token');
-    console.log('Token:', token); // Add this line to check the token
     const response = await axios.put(`${API_BASE_URL}/projects/${id}`, project, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
     });
-    console.log('Response:', response);
     if (!response.data) {
       throw new Error('Failed to update project');
     }
     return response.data;
   } catch (error) {
     console.error(error);
+    localStorage.removeItem('token');
+    alert('Please login again');
     return null;
   }
 };
@@ -87,6 +89,8 @@ export const deleteProject = async (id) => {
     return true;
   } catch (error) {
     console.error(error);
+    localStorage.removeItem('token');
+    alert('Please login again');
     return false;
   }
 };
