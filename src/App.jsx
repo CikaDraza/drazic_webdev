@@ -5,13 +5,34 @@ import gsap from 'gsap';
 import BackOffice from './components/BackOfficeComponent';
 import LoginDialog from './components/LoginDialog';
 import axios from 'axios';
+import TestimonialCarousel from './components/TestimonialCarousel';
+import BackOfficeClient from './components/BackOfficeClientComponent';
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [user, setUser] = useState(null);
+
+  const fetchUser = async () => {
+    try {
+      const response = await axios.get(`https://pmkzbb1zs8.execute-api.eu-central-1.amazonaws.com/prod/users/email/${localStorage.getItem('user-email') ? localStorage.getItem('user-email') : encodeURIComponent(email)}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      });
+      setUser(response.data);
+    } catch (error) {
+      console.error('Error fetching user:', error);
+    }
+  };
+  
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchUser();
+    }
+  }, [isLoggedIn]);
 
   const handleLogin = async (email, password) => {
     try {
@@ -20,8 +41,10 @@ function App() {
         password
       });
       alert('Login successful');
+      setIsLoading(false);
       setShowLogin(false);
       setShowMenu(false);
+      localStorage.setItem('user-email', email);
       localStorage.setItem('token', data.token);
       setIsLoggedIn(true);
     } catch (error) {
@@ -31,6 +54,7 @@ function App() {
   
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
     const formOutput = new FormData(event.currentTarget);
     const formData = {
       email: formOutput.get('email'),
@@ -51,6 +75,7 @@ function App() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('token');
+    localStorage.removeItem('user-email');
     alert('Logout successful');
   }
 
@@ -218,7 +243,7 @@ function App() {
           <div className="row">
             <div className="column">
               <div className="headline">
-                <h2>Service</h2>
+                <h2>Services</h2>
                 <hr />
                 <p>At Drazic webdev, we specialize in delivering end-to-end digital solutions that help businesses thrive in the modern world. From robust web applications to engaging mobile apps, and from stunning designs to effective digital marketing strategies, we have the expertise to turn your ideas into success.</p>
               </div>
@@ -340,7 +365,7 @@ function App() {
             <div className="row">
               <div className="column">
                 <div className="headline">
-                  <h2>Our Project</h2>
+                  <h2>Projects</h2>
                   <hr />
                   <p>Explore our work to see how we've helped our clients achieve their goals through our expertise in development and design. From cutting-edge web applications and innovative mobile apps to dynamic e-commerce solutions and stunning designs.</p>
                 </div>
@@ -362,15 +387,37 @@ function App() {
       <section id='customize-projects'>
       {
         showLogin &&
-        <LoginDialog onClose={() => setShowLogin(false)} handleLogin={handleSubmit} email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
+        <LoginDialog onClose={() => setShowLogin(false)} handleLogin={handleSubmit} email={email} setEmail={setEmail} password={password} setPassword={setPassword} isLoading={isLoading} />
       }
       {
-        isLoggedIn &&
+        isLoggedIn && user?.admin === 1 &&
         <div className="container">
           <BackOffice />
         </div>
       }
       </section>
+      <section id="testimonials">
+        <div className="container">
+          <div className="row">
+            <div className="column">
+              <div className="headline">
+                <h2>Testimonials</h2>
+                <hr />
+                <p>No matter the size of the client's business, I always give my best effort. Sometimes it's challenging, sometimes it's easier, but I always strive to find the best solution for both. But don't just take my word for it, see what they say about me.</p>
+              </div>
+            </div>
+          </div>
+          <TestimonialCarousel />
+        </div>
+      </section>
+      {
+        isLoggedIn && user?.admin === 0 || user?.admin === 1 &&
+        <section id="customize-testimonials">
+            <div className="container">
+              <BackOfficeClient />
+            </div>
+        </section>
+      }
     </>
   )
 }

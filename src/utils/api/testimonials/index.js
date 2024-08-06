@@ -10,11 +10,11 @@ const getAuthHeaders = () => {
   };
 };
 
-export const getProjects = async () => {
+export const getTestimonials = async () => {
   try {
-    const { data } = await axios.get(`${API_BASE_URL}/projects`);
+    const { data } = await axios.get(`${API_BASE_URL}/testimonials`);
     if (data.length === 0) {
-      throw new Error('Failed to fetch projects');
+      throw new Error('Failed to fetch testimonials');
     }
     return data;
   } catch (error) {
@@ -23,11 +23,11 @@ export const getProjects = async () => {
   }
 };
 
-export const getProjectById = async (id) => {
+export const getTestimonialById = async (id) => {
   try {
-    const { data } = await axios.get(`${API_BASE_URL}/projects/${id}`);
+    const { data } = await axios.get(`${API_BASE_URL}/testimonials/${id}`);
     if (!data) {
-      throw new Error('Failed to fetch project');
+      throw new Error('Failed to fetch testimonial');
     }
     return data;
   } catch (error) {
@@ -36,15 +36,15 @@ export const getProjectById = async (id) => {
   }
 };
 
-export const createProject = async (project) => {
+export const createTestimonial = async (testimonial) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/projects`, {
+    const response = await fetch(`${API_BASE_URL}/testimonials`, {
       method: 'POST',
       headers: getAuthHeaders(),
-      body: JSON.stringify(project),
+      body: JSON.stringify(testimonial),
     });
     if (!response.ok) {
-      throw new Error('Failed to create project');
+      throw new Error('Failed to create testimonial');
     }
     const data = await response.json();
     return data;
@@ -54,17 +54,17 @@ export const createProject = async (project) => {
   }
 };
 
-export const updateProject = async (id, project) => {
+export const updateTestimonial = async (id, testimonial) => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.put(`${API_BASE_URL}/projects/${id}`, project, {
+    const response = await axios.put(`${API_BASE_URL}/testimonials/${id}`, testimonial, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
     });
     if (!response.data) {
-      throw new Error('Failed to update project');
+      throw new Error('Failed to update testimonial');
     }
     return response.data;
   } catch (error) {
@@ -73,14 +73,18 @@ export const updateProject = async (id, project) => {
   }
 };
 
-export const deleteProject = async (id) => {
+export const deleteTestimonial = async (id) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`${API_BASE_URL}/testimonials/${id}`, {
       method: 'DELETE',
-      headers: getAuthHeaders(),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
     });
     if (!response.ok) {
-      throw new Error('Failed to delete project');
+      throw new Error('Failed to delete testimonial');
     }
     return true;
   } catch (error) {

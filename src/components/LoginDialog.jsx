@@ -1,10 +1,11 @@
 import React from 'react';
 
-const LoginDialog = ({ onClose, handleLogin, email, setEmail, password, setPassword }) => {
+const LoginDialog = ({ isLoading, onClose, handleLogin, email, setEmail, password, setPassword }) => {
 
   return (
     <div className="login-dialog">
       <div className="login-dialog-content">
+        <span className={`loader ${isLoading ? 'show' : 'hide'}`}>Please waith...</span>
         <button onClick={onClose} className="close-btn">X</button>
         <h3>Login</h3>
         <form onSubmit={handleLogin}>
