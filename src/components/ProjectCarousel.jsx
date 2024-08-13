@@ -38,6 +38,7 @@ const PrevArrow = (props) => {
 
 export default function ProjectCarousel() {
   const [projects, setProjects] = useState([]);  
+console.log(projects);
 
   useEffect(() => {
     const fetchAllProjects = async () => {
@@ -106,7 +107,7 @@ export default function ProjectCarousel() {
       <Slider {...settings}>
         {
           projects?.map((project, i) => (
-            <div className={`slider-card ${project?.colors}`} key={project.id}>
+            <div className={`slider-card ${project?.color}`} key={project._id}>
               <div className="slider-card__card-media">
                 <div className="logo">
                   <img width={'auto'} height={'25px'} src={project?.logo_url} alt="Project Logo" />

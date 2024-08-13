@@ -290,6 +290,225 @@ section#projects {
   }
 }
 
+#testimonials {
+  .slider-container {
+    margin: 3rem 0;
+    padding: 0 10rem;
+    .slick-slider {
+      position: relative;
+      .slick-arrow.slick-next {
+        position: absolute;
+        bottom: 20%;
+        left: calc(100% - 400px);
+      }
+      .slick-arrow.slick-prev {
+        position: absolute;
+        bottom: 20%;
+        left: calc(100% - 450px);
+        z-index: 1;
+      }
+    }
+  }
+  .slider-testimonial-card {
+    width: 100%;
+    display: flex!important;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+  }
+  .slider-testimonial-card__card-content {
+    background-color: #000;
+    padding: 2rem 3rem;
+    border-radius: 1rem;
+    margin-right: 2rem;
+    position: relative;
+    .testimonials-icon {
+      position: absolute;
+      top: -1.5rem;
+      left: 0%;
+      z-index: 2;
+      svg {
+        position: relative;
+        left: 100%;
+        margin-left: -1rem;
+      }
+    }
+    .card-text {
+      padding: 2rem 0;
+    }
+    .card-client-name {
+      color: gold;
+    }
+  }
+  .slider-testimonial-card__card-media {
+    width: 400px;
+    height: 450px;
+    overflow: hidden;
+    border-radius: 150px;
+    padding: 0;
+    margin-left: 2rem;
+    .testimonial-image {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      padding: 0!important;
+    }
+  }
+  .rating {
+    position: relative;
+    display: inline-block;
+    font-size: 0;
+    width: 110px;
+    height: 24px;
+    overflow: hidden;
+  }
+  
+  .rating:before,
+  .rating:after {
+    content: "★★★★★";
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 24px;
+    line-height: 1;
+    color: grey;
+    z-index: 1;
+  }
+  
+  .rating .stars {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    z-index: 2;
+  }
+  
+  .rating .stars:before {
+    content: "★★★★★";
+    font-size: 24px;
+    line-height: 1;
+    color: gold;
+  }
+}
+
+#contact {
+  background-color: #363636;
+  .column {
+    width: 100%;
+  }
+  .headline h3 {
+    font-size: 2.5rem;
+    color: #EE9900;
+  }
+  .form-row.row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .column {
+      width: auto;
+    }
+  }
+  .form-row {
+    padding: 5rem 0;
+    width: 100%;
+    .column {
+      width: 100%;
+      .contact-form {
+        margin: auto;
+        padding: 1.5rem;
+        padding-right: 2rem;
+        padding-left: 0;
+        background-color: #242424;
+        border-radius: 1rem;
+      }
+      .input-field {
+        position: relative;
+        margin: 2rem 0 0 2rem;
+        width: 100%;
+      }
+      input {
+        position: relative;
+        padding: 16.5px 14px;
+        z-index: 0;
+        background-color: transparent;
+        border: thin solid #cdcdcd;
+        border-radius: 1rem;
+        color: #f4f4f4;
+      }
+      fieldset {
+        position: absolute;
+        top: 0;
+        box-shadow: none;
+        border: none;
+        color: #f4f4f4;
+        height: auto;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px 14px;
+        margin: 0;
+      }
+      legend {
+        background-color: #242424;
+        position: absolute;
+        top: 0%;
+        transform: translateY(-50%);
+        visibility: visible;
+      }
+      textarea {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 1rem;
+        resize: vertical;
+        background-color: transparent;
+        border: thin solid #cdcdcd;
+        border-radius: 1rem;
+        color: #f4f4f4;
+      }
+      .column.submit {
+        width: 100%;
+        padding-top: 1rem;
+      }
+      .submit-btn {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+      }
+      button {
+        padding: 1rem 2rem;
+        border-radius: 1rem;
+        border: none;
+      }
+    }
+  }
+}
+
+footer {
+  height: auto;
+  #footer_loader_container {
+  }
+}
+
+#thank-you-card {
+  overflow: hidden;
+  .wrapper {
+    height: 500px;
+    position: relative;
+  }
+  .caption {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5rem;
+    font-weight: 700;
+  }
+}
+
 .slick-slider {
   display: flex;
   flex-wrap: wrap;
@@ -519,114 +738,6 @@ section#projects {
     }
   }
 }
-
-#testimonials {
-  .slider-container {
-    margin: 3rem 0;
-    padding: 0 10rem;
-    .slick-slider {
-      position: relative;
-      .slick-arrow.slick-next {
-        position: absolute;
-        bottom: 20%;
-        left: calc(100% - 400px);
-      }
-      .slick-arrow.slick-prev {
-        position: absolute;
-        bottom: 20%;
-        left: calc(100% - 450px);
-        z-index: 1;
-      }
-    }
-  }
-  .slider-testimonial-card {
-    width: 100%;
-    display: flex!important;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
-  }
-  .slider-testimonial-card__card-content {
-    background-color: #000;
-    padding: 2rem 3rem;
-    border-radius: 1rem;
-    margin-right: 2rem;
-    position: relative;
-    .testimonials-icon {
-      position: absolute;
-      top: -1.5rem;
-      left: 0%;
-      z-index: 2;
-      svg {
-        position: relative;
-        left: 100%;
-        margin-left: -1rem;
-      }
-    }
-    .card-text {
-      padding: 2rem 0;
-    }
-    .card-client-name {
-      color: gold;
-    }
-  }
-  .slider-testimonial-card__card-media {
-    width: 400px;
-    height: 450px;
-    overflow: hidden;
-    border-radius: 150px;
-    padding: 0;
-    margin-left: 2rem;
-    .testimonial-image {
-      background-position: center;
-      background-repeat: no-repeat;
-      background-size: cover;
-      object-fit: cover;
-      width: 100%;
-      height: 100%;
-      padding: 0!important;
-    }
-  }
-  .rating {
-    position: relative;
-    display: inline-block;
-    font-size: 0;
-    width: 110px;
-    height: 24px;
-    overflow: hidden;
-  }
-  
-  .rating:before,
-  .rating:after {
-    content: "★★★★★";
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 24px;
-    line-height: 1;
-    color: grey;
-    z-index: 1;
-  }
-  
-  .rating .stars {
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    z-index: 2;
-  }
-  
-  .rating .stars:before {
-    content: "★★★★★";
-    font-size: 24px;
-    line-height: 1;
-    color: gold;
-  }
-  
-}
-
 
 .back-office {
   overflow-x: scroll;

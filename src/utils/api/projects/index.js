@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = 'https://pmkzbb1zs8.execute-api.eu-central-1.amazonaws.com/prod';
+const API_BASE_URL = 'https://drazic-webdev-server.vercel.app/api';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');

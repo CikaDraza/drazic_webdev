@@ -7,6 +7,8 @@ import LoginDialog from './components/LoginDialog';
 import axios from 'axios';
 import TestimonialCarousel from './components/TestimonialCarousel';
 import BackOfficeClient from './components/BackOfficeClientComponent';
+import ContactForm from './components/ContactForm';
+import FooterAnimation from './components/FooterAnimation';
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
@@ -161,6 +163,7 @@ function App() {
                     <ul>
                       <li><a href="#services">Services</a></li>
                       <li><a href="#projects">Projects</a></li>
+                      <li><a href="#contact">Contact</a></li>
                       {
                         !isLoggedIn ?
                         <li>
@@ -195,7 +198,7 @@ function App() {
               </div>
               <div className='action-btn'>
                 <button>
-                  <a href="#contact">contact me</a>
+                  <a>contact me</a>
                 </button>
               </div>
             </div>
@@ -418,6 +421,34 @@ function App() {
             </div>
         </section>
       }
+      <section id='contact'>
+        <div className="container">
+          <div className="row">
+            <div className="column">
+              <div className="headline">
+                <h2>Get in Touch</h2>
+                <hr />
+                <h3>Ready to Get Started?</h3>
+              </div>
+            </div>
+          </div>
+          <div className="form-row row">
+            <div className="column">
+              <ContactForm />
+            </div>
+          </div>
+        </div>
+      </section>
+      <footer>
+        <div id='thank-you-card'>
+          <div className="wrapper">
+            <FooterAnimation />
+            <div className="caption">
+              <span>Thank you for caming</span>
+            </div>
+          </div>
+        </div>
+      </footer>
     </>
   )
 }
