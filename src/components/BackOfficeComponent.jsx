@@ -103,9 +103,9 @@ const BackOffice = () => {
               <td>
                 {editId === project.id ? (
                   <>
-                    <input type="text" name="colors" value={editProject?.colors || ''} onChange={handleChange} placeholder="Color" />
+                    <input type="text" name="colors" value={editProject?.color || ''} onChange={handleChange} placeholder="Color" />
                   </>
-                ) : `${project.colors}`}
+                ) : `${project.color}`}
               </td>
               <td>{editId === project.id ? <input type="text" name="image_url" value={editProject?.image_url} onChange={handleChange} /> : project.image_url}</td>
               <td>{editId === project.id ? <input type="text" name="logo_url" value={editProject?.logo_url} onChange={handleChange} /> : project.logo_url}</td>

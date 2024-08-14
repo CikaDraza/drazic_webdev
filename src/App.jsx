@@ -19,20 +19,30 @@ function App() {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
 
+  const getAuthHeaders = () => {
+    const token = localStorage.getItem('token');
+    return {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    };
+  };
+
   const fetchUser = async () => {
     try {
       const email = localStorage.getItem('user-email');
-      const token = localStorage.getItem('token');
       
       // Fetch user data
-      const response = await axios.get(`https://drazic-webdev-server.vercel.app/api/users/${encodeURIComponent(email)}`, {
-        headers: { Authorization: `Bearer ${token}` },
+      const { data } = await axios.get(`https://drazic-webdev-server.vercel.app/api/users/${email}`, {
+        method: 'GET',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(email),
       });
-      setUser(response.data);
+      setUser(data);
     } catch (error) {
       console.error('Error fetching user:', error);
     }
   };
+  console.log(user);
   
   useEffect(() => {
     if (isLoggedIn) {
@@ -397,7 +407,7 @@ function App() {
         <LoginDialog onClose={() => setShowLogin(false)} handleLogin={handleSubmit} email={email} setEmail={setEmail} password={password} setPassword={setPassword} isLoading={isLoading} />
       }
       {
-        isLoggedIn && user?.admin === 1 &&
+        isLoggedIn && user?.isAdmin &&
         <div className="container">
           <BackOffice />
         </div>
@@ -418,7 +428,7 @@ function App() {
         </div>
       </section>
       {
-        isLoggedIn && user?.admin === 0 || user?.admin === 1 &&
+        isLoggedIn && user &&
         <section id="customize-testimonials">
             <div className="container">
               <BackOfficeClient />
