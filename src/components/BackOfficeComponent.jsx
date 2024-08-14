@@ -18,12 +18,12 @@ const BackOffice = () => {
   const handleDelete = async (id) => {
     const success = await deleteProject(id);
     if (success) {
-      setProjects(projects.filter(project => project.id !== id));
+      setProjects(projects.filter(project => project._id !== id));
     }
   };
 
   const handleEdit = (project) => {
-    setEditId(project.id);
+    setEditId(project._id);
     setEditProject(project);
   };
 
@@ -36,7 +36,7 @@ const BackOffice = () => {
     try {
       const updatedProject = {
         ...editProject,
-        colors: editProject.colors,
+        color: editProject.color,
       };
 
       const response = await updateProject(editId, updatedProject);
@@ -88,10 +88,10 @@ const BackOffice = () => {
         <tbody>
           {projects.map(project => (
             <tr key={project.id}>
-              <td>{editId === project.id ? <input type="text" name="title" value={editProject?.title} onChange={handleChange} /> : project.title}</td>
-              <td>{editId === project.id ? <input type="text" name="description" value={editProject?.description} onChange={handleChange} /> : project.description}</td>
+              <td>{editId === project._id ? <input type="text" name="title" value={editProject?.title} onChange={handleChange} /> : project.title}</td>
+              <td>{editId === project._id ? <input type="text" name="description" value={editProject?.description} onChange={handleChange} /> : project.description}</td>
               <td>
-                {editId === project.id ? (
+                {editId === project._id ? (
                   <select name="category" value={editProject?.category || ''} onChange={handleChange}>
                     <option value="">Add Category</option>
                     <option value="Web app">Web App</option>
@@ -101,18 +101,18 @@ const BackOffice = () => {
                 ) : project.category}
               </td>
               <td>
-                {editId === project.id ? (
+                {editId === project._id ? (
                   <>
                     <input type="text" name="colors" value={editProject?.color || ''} onChange={handleChange} placeholder="Color" />
                   </>
                 ) : `${project.color}`}
               </td>
-              <td>{editId === project.id ? <input type="text" name="image_url" value={editProject?.image_url} onChange={handleChange} /> : project.image_url}</td>
-              <td>{editId === project.id ? <input type="text" name="logo_url" value={editProject?.logo_url} onChange={handleChange} /> : project.logo_url}</td>
-              <td>{editId === project.id ? <input type="text" name="live_preview_url" value={editProject?.live_preview_url} onChange={handleChange} /> : project.live_preview_url}</td>
-              <td>{editId === project.id ? <input type="text" name="github_url" value={editProject?.github_url} onChange={handleChange} /> : project.github_url}</td>
+              <td>{editId === project._id ? <input type="text" name="image_url" value={editProject?.image_url} onChange={handleChange} /> : project.image_url}</td>
+              <td>{editId === project._id ? <input type="text" name="logo_url" value={editProject?.logo_url} onChange={handleChange} /> : project.logo_url}</td>
+              <td>{editId === project._id ? <input type="text" name="live_preview_url" value={editProject?.live_preview_url} onChange={handleChange} /> : project.live_preview_url}</td>
+              <td>{editId === project._id ? <input type="text" name="github_url" value={editProject?.github_url} onChange={handleChange} /> : project.github_url}</td>
               <td>
-                {editId === project.id ? (
+                {editId === project._id ? (
                   <>
                     <button className='action-btns save-btn' onClick={handleUpdate}>Save</button>
                     <button className='action-btns cancel-btn' onClick={handleCancel}>Cancel</button>
