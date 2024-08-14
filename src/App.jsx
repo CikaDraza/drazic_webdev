@@ -21,8 +21,12 @@ function App() {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get(`https://drazic-webdev-server.vercel.app/api/users/${localStorage.getItem('user-email') ? localStorage.getItem('user-email') : encodeURIComponent(email)}`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+      const email = localStorage.getItem('user-email');
+      const token = localStorage.getItem('token');
+      
+      // Fetch user data
+      const response = await axios.get(`https://drazic-webdev-server.vercel.app/api/users/${encodeURIComponent(email)}`, {
+        headers: { Authorization: `Bearer ${token}` },
       });
       setUser(response.data);
     } catch (error) {
