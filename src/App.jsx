@@ -21,7 +21,7 @@ function App() {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get(`https://pmkzbb1zs8.execute-api.eu-central-1.amazonaws.com/prod/users/email/${localStorage.getItem('user-email') ? localStorage.getItem('user-email') : encodeURIComponent(email)}`, {
+      const response = await axios.get(`https://drazic-webdev-server.vercel.app/api/users/${localStorage.getItem('user-email') ? localStorage.getItem('user-email') : encodeURIComponent(email)}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setUser(response.data);
@@ -38,7 +38,7 @@ function App() {
 
   const handleLogin = async (email, password) => {
     try {
-      const { data } = await axios.post('https://pmkzbb1zs8.execute-api.eu-central-1.amazonaws.com/prod/login', {
+      const { data } = await axios.post('https://drazic-webdev-server.vercel.app/api/login', {
         email,
         password
       });
