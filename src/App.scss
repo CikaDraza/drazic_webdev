@@ -700,6 +700,9 @@ footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
+    .loader {
+      color: #EE9900;
+    }
     .close-btn {
       border-radius: 50%;
       width: 30px;
