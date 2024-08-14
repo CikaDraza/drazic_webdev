@@ -414,7 +414,7 @@ function App() {
               </div>
             </div>
           </div>
-          <TestimonialCarousel />
+          {/* <TestimonialCarousel /> */}
         </div>
       </section>
       {
