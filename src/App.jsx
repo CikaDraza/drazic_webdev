@@ -42,7 +42,6 @@ function App() {
       console.error('Error fetching user:', error);
     }
   };
-  console.log(user);
   
   useEffect(() => {
     if (isLoggedIn) {
@@ -97,7 +96,6 @@ function App() {
 
   useEffect(() => {
     const timeline = gsap.timeline({ delay: 2.2 });
-
     // Animate left column width
     timeline.to('.left', {
       width: '100%',
