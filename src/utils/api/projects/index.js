@@ -4,7 +4,6 @@ const API_BASE_URL = 'https://drazic-webdev-server.vercel.app/api';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
-  console.log('Token:', token); // Debugging line
   return {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
@@ -39,12 +38,10 @@ export const getProjectById = async (id) => {
 
 export const createProject = async (project) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/projects/create`, {
-      method: 'POST',
+    const response = await axios.post(`${API_BASE_URL}/projects/create`, project, {
       headers: getAuthHeaders(),
-      body: JSON.stringify(project),
     });
-    if (!response.ok) {
+    if (!response.data) {
       throw new Error('Failed to create project');
     }
     const data = await response.json();
