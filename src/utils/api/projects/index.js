@@ -39,7 +39,7 @@ export const getProjectById = async (id) => {
 
 export const createProject = async (project) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/projects`, {
+    const response = await fetch(`${API_BASE_URL}/projects/create`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(project),
