@@ -38,7 +38,6 @@ const PrevArrow = (props) => {
 
 export default function ProjectCarousel() {
   const [projects, setProjects] = useState([]);
-console.log(projects);
 
   useEffect(() => {
     const fetchAllProjects = async () => {
