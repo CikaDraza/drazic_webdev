@@ -38,19 +38,17 @@ export const getProjectById = async (id) => {
 
 export const createProject = async (project) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/projects/create`, project, {
+    const { data } = await axios.post(`${API_BASE_URL}/projects/create`, project, {
       headers: getAuthHeaders(),
     });
-    if (!response.data) {
-      throw new Error('Failed to create project');
-    }
-    const data = await response.json();
+    
     return data;
   } catch (error) {
-    console.error(error);
+    console.error('Error creating project:', error);
     return null;
   }
 };
+
 
 export const updateProject = async (id, project) => {
   try {
