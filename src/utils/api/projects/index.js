@@ -4,6 +4,7 @@ const API_BASE_URL = 'https://drazic-webdev-server.vercel.app/api';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
+  console.log('Token:', token); // Debugging line
   return {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
