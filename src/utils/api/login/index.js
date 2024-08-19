@@ -6,7 +6,7 @@ const URL = process.env.NODE_ENV === 'production'
 
 export const loginUser = async (email, password) => {
   try {
-    const response = await axios.post(`${URL}/login`, email, password);
+    const response = await axios.post(`${URL}/api/login`, email, password);
     return response.data;
   } catch (error) {
     console.error('Login error:', error);
