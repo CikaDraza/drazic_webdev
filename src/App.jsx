@@ -19,15 +19,15 @@ function App() {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
 
-  const origin = process.env.NODE_ENV === 'production'
-  const API_BASE_URL = origin ? 'https://drazic-webdev.vercel.app' : 'http://localhost:3000/api';
+  const origin = request.headers.get('Origin');
+  const allowedOrigins = ['http://localhost:5173', 'https://drazic-webdev.vercel.app'];
+  const URL = allowedOrigins.includes(origin) ? origin : 'null'
 
   const getAuthHeaders = () => {
     const token = localStorage.getItem('token');
     return {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`,
-      'Access-Control-Allow-Origin': `${API_BASE_URL}`,
     };
   };
 
@@ -36,7 +36,7 @@ function App() {
       const email = localStorage.getItem('user-email');
       
       // Fetch user data
-      const { data } = await axios.get(`${API_BASE_URL}/api/users/${email}`, {
+      const { data } = await axios.get(`${URL}/api/users/${email}`, {
         method: 'GET',
         headers: getAuthHeaders(),
         body: JSON.stringify(email),
@@ -55,7 +55,7 @@ function App() {
 
   const handleLogin = async (email, password) => {
     try {
-      const { data } = await axios.post(`${API_BASE_URL}/api/login`, {
+      const { data } = await axios.post(`${URL}/api/login`, {
         email,
         password
       });

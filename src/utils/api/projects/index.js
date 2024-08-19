@@ -1,20 +1,21 @@
 import axios from "axios";
 
-const origin = process.env.NODE_ENV === 'production'
-const API_BASE_URL = origin ? 'https://drazic-webdev.vercel.app' : 'http://localhost:3000/api';
+const origin = request.headers.get('Origin');
+const allowedOrigins = ['http://localhost:5173', 'https://drazic-webdev.vercel.app'];
+const URL = allowedOrigins.includes(origin) ? origin : 'null'
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
   return {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
-    'Access-Control-Allow-Origin': `${API_BASE_URL}`,
+    'Access-Control-Allow-Origin': allowedOrigins.includes(origin) ? origin : 'null',
   };
 };
 
 export const getProjects = async () => {
   try {
-    const { data } = await axios.get(`${API_BASE_URL}/projects`);
+    const { data } = await axios.get(`${URL}/api/projects`);
     if (data.length === 0) {
       throw new Error('Failed to fetch projects');
     }
@@ -27,7 +28,7 @@ export const getProjects = async () => {
 
 export const getProjectById = async (id) => {
   try {
-    const { data } = await axios.get(`${API_BASE_URL}/projects/${id}`);
+    const { data } = await axios.get(`${URL}/api/projects/${id}`);
     if (!data) {
       throw new Error('Failed to fetch project');
     }
@@ -40,7 +41,7 @@ export const getProjectById = async (id) => {
 
 export const createProject = async (project) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/create_project`, project, {
+    const response = await axios.post(`${URL}/api/create_project`, project, {
       headers: getAuthHeaders(),
     });
     return response.data;
@@ -53,7 +54,7 @@ export const createProject = async (project) => {
 
 export const updateProject = async (id, project) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/projects/${id}`, project, {
+    const response = await axios.put(`${URL}/api/projects/${id}`, project, {
       headers: getAuthHeaders(),
       method: 'PUT',
     });
@@ -69,7 +70,7 @@ export const updateProject = async (id, project) => {
 
 export const deleteProject = async (projectId) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL}/projects/${projectId}`, {
+    const response = await axios.delete(`${URL}/api/projects/${projectId}`, {
       headers: getAuthHeaders(),
     });
 

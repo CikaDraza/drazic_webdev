@@ -1,11 +1,12 @@
 import axios from "axios";
 
-const origin = process.env.NODE_ENV === 'production'
-const API_BASE_URL = origin ? 'https://drazic-webdev.vercel.app' : 'http://localhost:3000/api';
+const origin = request.headers.get('Origin');
+const allowedOrigins = ['http://localhost:5173', 'https://drazic-webdev.vercel.app'];
+const URL = allowedOrigins.includes(origin) ? origin : 'null'
 
 export const loginUser = async (email, password) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/login`, email, password);
+    const response = await axios.post(`${URL}/login`, email, password);
     return response.data;
   } catch (error) {
     console.error('Login error:', error);
