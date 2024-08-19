@@ -1,12 +1,14 @@
 import axios from "axios";
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const origin = process.env.NODE_ENV === 'production'
+const API_BASE_URL = origin ? 'https://drazic-webdev.vercel.app' : 'http://localhost:3000/api';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
   return {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
+    'Access-Control-Allow-Origin': `${API_BASE_URL}`,
   };
 };
 
