@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { createTestimonial, deleteTestimonial, getTestimonials, updateTestimonial } from '../utils/api/testimonials';
+import { createTestimonial, deleteTestimonial, getTestimonialByUser, getTestimonials, updateTestimonial } from '../utils/api/testimonials';
 
-const BackOfficeClient = () => {
+const BackOfficeClient = ({ user }) => {
   const [testimonials, setTestimonials] = useState([]);
   const [editId, setEditId] = useState(null);
   const [editTestimonials, setEditTestimonials] = useState(null);
 
   const fetchTestimonials = async () => {
-    const fetchedTestimonials = await getTestimonials();
-    setTestimonials(fetchedTestimonials);
+    const fetchedTestimonials = await getTestimonialByUser();
+    setTestimonials(fetchedTestimonials || []);
   };
-
+  
   useEffect(() => {
     fetchTestimonials();
   }, []);
 
   const handleDelete = async (id) => {
     const success = await deleteTestimonial(id);
-    console.log(success);
-
     if (success) {
-      setTestimonials(testimonials.filter(testimonial => testimonial.id !== id));
+      setTestimonials(testimonials.filter(testimonial => testimonial._id !== id));
     }
   };
 
   const handleEdit = (testimonial) => {
-    setEditId(testimonial.id);
+    setEditId(testimonial._id);
     setEditTestimonials(testimonial);
   };
 
@@ -36,10 +34,7 @@ const BackOfficeClient = () => {
 
   const handleUpdate = async () => {
     try {
-      const updatedTestimonials = {
-        ...editTestimonials
-      };
-
+      const updatedTestimonials = { ...editTestimonials };
       const response = await updateTestimonial(editId, updatedTestimonials);
       if (response) {
         fetchTestimonials();
@@ -52,19 +47,14 @@ const BackOfficeClient = () => {
       console.error('Error updating testimonial:', error);
     }
   };
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEditTestimonials(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };  
+    setEditTestimonials(prevState => ({ ...prevState, [name]: value }));
+  };
 
   const handleCreate = async () => {
     const newTestimonials = await createTestimonial(editTestimonials);
-    console.log(newTestimonials);
-    
     if (newTestimonials) {
       fetchTestimonials();
       setEditId(null);
@@ -87,13 +77,13 @@ const BackOfficeClient = () => {
         </thead>
         <tbody>
           {testimonials.map(testimonial => (
-            <tr key={testimonial.id}>
-              <td>{editId === testimonial.id ? <input type="text" name="client_title" value={editTestimonials?.client_title} onChange={handleChange} /> : testimonial.client_title}</td>
-              <td>{editId === testimonial.id ? <input type="text" name="client_name" value={editTestimonials?.client_name} onChange={handleChange} /> : testimonial.client_name}</td>
-              <td>{editId === testimonial.id ? <input type="textarea" name="text" value={editTestimonials?.text} onChange={handleChange} /> : testimonial?.text}</td>
-              <td>{editId === testimonial.id ? <input type="text" name="image_url" value={editTestimonials?.image_url} onChange={handleChange} /> : testimonial.image_url}</td>
+            <tr key={testimonial._id}>
+              <td>{editId === testimonial._id ? <input type="text" name="client_title" value={editTestimonials?.client_title} onChange={handleChange} /> : testimonial.client_title}</td>
+              <td>{editId === testimonial._id ? <input type="text" name="client_name" value={editTestimonials?.client_name} onChange={handleChange} /> : testimonial.client_name}</td>
+              <td>{editId === testimonial._id ? <textarea name="text" value={editTestimonials?.text} onChange={handleChange} /> : testimonial.text}</td>
+              <td>{editId === testimonial._id ? <input type="text" name="image_url" value={editTestimonials?.image_url} onChange={handleChange} /> : testimonial.image_url}</td>
               <td>
-                {editId === testimonial.id ? (
+                {editId === testimonial._id ? (
                   <select name="rating" value={editTestimonials?.rating || ''} onChange={handleChange}>
                     <option value="">Add Rating</option>
                     <option value="1">1</option>
@@ -105,7 +95,7 @@ const BackOfficeClient = () => {
                 ) : testimonial.rating}
               </td>
               <td>
-                {editId === testimonial.id ? (
+                {editId === testimonial._id ? (
                   <>
                     <button className='action-btns save-btn' onClick={handleUpdate}>Save</button>
                     <button className='action-btns cancel-btn' onClick={handleCancel}>Cancel</button>
@@ -113,7 +103,7 @@ const BackOfficeClient = () => {
                 ) : (
                   <>
                     <button className='action-btns edit-btn' onClick={() => handleEdit(testimonial)}>Edit</button>
-                    <button className='action-btns delete-btn' onClick={() => handleDelete(testimonial.id)}>Delete</button>
+                    <button className='action-btns delete-btn' onClick={() => handleDelete(testimonial._id)}>Delete</button>
                   </>
                 )}
               </td>
@@ -146,7 +136,7 @@ const BackOfficeClient = () => {
         </tbody>
       </table>
     </div>
-  )
+  );
 }
 
 export default BackOfficeClient;

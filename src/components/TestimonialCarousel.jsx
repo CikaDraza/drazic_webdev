@@ -85,13 +85,13 @@ export default function TestimonialCarousel() {
     nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />
   };
-
+  
   return (
     <div className='slider-container'>
       <Slider {...settings}>
         {
           testimonials?.map((testimonial, i) => (
-            <div className='slider-testimonial-card' key={testimonial.id}>
+            <div className='slider-testimonial-card' key={testimonial._id}>
               <div className="slider-testimonial-card__card-content">
                 <div className="testimonials-icon">
                   <TestimonialsIcon />

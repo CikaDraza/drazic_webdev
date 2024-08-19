@@ -422,14 +422,14 @@ function App() {
               </div>
             </div>
           </div>
-          {/* <TestimonialCarousel /> */}
+          <TestimonialCarousel />
         </div>
       </section>
       {
         isLoggedIn && user &&
         <section id="customize-testimonials">
             <div className="container">
-              {/* <BackOfficeClient /> */}
+              <BackOfficeClient />
             </div>
         </section>
       }

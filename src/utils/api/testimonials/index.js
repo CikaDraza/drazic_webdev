@@ -23,11 +23,11 @@ export const getTestimonials = async () => {
   }
 };
 
-export const getTestimonialById = async (id) => {
+export const getTestimonialByUser = async () => {
   try {
-    const { data } = await axios.get(`${API_BASE_URL}/testimonials/${id}`);
+    const { data } = await axios.get(`${API_BASE_URL}/testimonials/user`);
     if (!data) {
-      throw new Error('Failed to fetch testimonial');
+      throw new Error('Failed to fetch testimonials');
     }
     return data;
   } catch (error) {
