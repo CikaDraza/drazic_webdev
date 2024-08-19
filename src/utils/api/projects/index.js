@@ -1,8 +1,8 @@
 import axios from "axios";
 
-const origin = request.headers.get('Origin');
-const allowedOrigins = ['http://localhost:5173', 'https://drazic-webdev.vercel.app'];
-const URL = allowedOrigins.includes(origin) ? origin : 'null'
+const URL = process.env.NODE_ENV === 'production'
+? 'https://drazic-webdev.vercel.app'
+: 'http://localhost:5173';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
