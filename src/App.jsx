@@ -19,10 +19,6 @@ function App() {
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
 
-  const URL = process.env.NODE_ENV === 'production'
-  ? 'https://drazic-webdev.vercel.app'
-  : 'http://localhost:5173';
-
   const getAuthHeaders = () => {
     const token = localStorage.getItem('token');
     return {
@@ -36,7 +32,7 @@ function App() {
       const email = localStorage.getItem('user-email');
       
       // Fetch user data
-      const { data } = await axios.get(`${URL}/api/users/${email}`, {
+      const { data } = await axios.get(`https://drazic-webdev-server.vercel.app/api/users/${email}`, {
         method: 'GET',
         headers: getAuthHeaders(),
         body: JSON.stringify(email),
@@ -55,7 +51,7 @@ function App() {
 
   const handleLogin = async (email, password) => {
     try {
-      const { data } = await axios.post(`${URL}/api/login`, {
+      const { data } = await axios.post('https://drazic-webdev-server.vercel.app/api/login', {
         email,
         password
       });

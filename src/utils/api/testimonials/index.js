@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const origin = process.env.NODE_ENV === 'production'
-const API_BASE_URL = origin ? 'https://drazic-webdev.vercel.app' : 'http://localhost:3000/api';
+const API_BASE_URL = 'https://drazic-webdev-server.vercel.app/api';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
@@ -13,7 +12,7 @@ const getAuthHeaders = () => {
 
 export const getTestimonials = async () => {
   try {
-    const { data } = await axios.get(`${API_BASE_URL}/api/testimonials`);
+    const { data } = await axios.get(`${API_BASE_URL}/testimonials`);
     if (data.length === 0) {
       throw new Error('Failed to fetch testimonials');
     }
@@ -26,7 +25,7 @@ export const getTestimonials = async () => {
 
 export const getTestimonialById = async (id) => {
   try {
-    const { data } = await axios.get(`${API_BASE_URL}/api/testimonials/${id}`);
+    const { data } = await axios.get(`${API_BASE_URL}/testimonials/${id}`);
     if (!data) {
       throw new Error('Failed to fetch testimonial');
     }
@@ -39,7 +38,7 @@ export const getTestimonialById = async (id) => {
 
 export const createTestimonial = async (testimonial) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/api/testimonials`, {
+    const response = await fetch(`${API_BASE_URL}/testimonials`, {
       method: 'POST',
       headers: getAuthHeaders(),
       body: JSON.stringify(testimonial),
@@ -58,7 +57,7 @@ export const createTestimonial = async (testimonial) => {
 export const updateTestimonial = async (id, testimonial) => {
   try {
     const token = localStorage.getItem('token');
-    const response = await axios.put(`${API_BASE_URL}/api/testimonials/${id}`, testimonial, {
+    const response = await axios.put(`${API_BASE_URL}/testimonials/${id}`, testimonial, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
@@ -77,7 +76,7 @@ export const updateTestimonial = async (id, testimonial) => {
 export const deleteTestimonial = async (id) => {
   try {
     const token = localStorage.getItem('token');
-    const response = await fetch(`${API_BASE_URL}/api/testimonials/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/testimonials/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

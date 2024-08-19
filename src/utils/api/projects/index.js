@@ -1,23 +1,18 @@
 import axios from "axios";
 
-const URL = process.env.NODE_ENV === 'production'
-? 'https://drazic-webdev-server.vercel.app'
-: 'http://localhost:3000';
-
-console.log(URL);
+const API_BASE_URL = 'https://drazic-webdev-server.vercel.app/api';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
   return {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
-    'Access-Control-Allow-Origin': `${URL}`,
   };
 };
 
 export const getProjects = async () => {
   try {
-    const { data } = await axios.get(`${URL}/api/projects`);
+    const { data } = await axios.get(`${API_BASE_URL}/projects`);
     if (data.length === 0) {
       throw new Error('Failed to fetch projects');
     }
@@ -30,7 +25,7 @@ export const getProjects = async () => {
 
 export const getProjectById = async (id) => {
   try {
-    const { data } = await axios.get(`${URL}/api/projects/${id}`);
+    const { data } = await axios.get(`${API_BASE_URL}/projects/${id}`);
     if (!data) {
       throw new Error('Failed to fetch project');
     }
@@ -43,7 +38,7 @@ export const getProjectById = async (id) => {
 
 export const createProject = async (project) => {
   try {
-    const response = await axios.post(`${URL}/api/create_project`, project, {
+    const response = await axios.post(`${API_BASE_URL}/create_project`, project, {
       headers: getAuthHeaders(),
     });
     return response.data;
@@ -56,7 +51,7 @@ export const createProject = async (project) => {
 
 export const updateProject = async (id, project) => {
   try {
-    const response = await axios.put(`${URL}/api/projects/${id}`, project, {
+    const response = await axios.put(`${API_BASE_URL}/projects/${id}`, project, {
       headers: getAuthHeaders(),
       method: 'PUT',
     });
@@ -72,7 +67,7 @@ export const updateProject = async (id, project) => {
 
 export const deleteProject = async (projectId) => {
   try {
-    const response = await axios.delete(`${URL}/api/projects/${projectId}`, {
+    const response = await axios.delete(`${API_BASE_URL}/projects/${projectId}`, {
       headers: getAuthHeaders(),
     });
 
