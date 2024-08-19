@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { createTestimonial, deleteTestimonial, getTestimonialByUser, getTestimonials, updateTestimonial } from '../utils/api/testimonials';
+import { createTestimonial, deleteTestimonial, getTestimonialByUser, updateTestimonial } from '../utils/api/testimonials';
 
-const BackOfficeClient = ({ user }) => {
+const BackOfficeClient = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [editId, setEditId] = useState(null);
   const [editTestimonials, setEditTestimonials] = useState(null);

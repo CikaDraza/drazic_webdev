@@ -4,6 +4,9 @@ const API_BASE_URL = 'https://drazic-webdev-server.vercel.app/api';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
+  if (!token) {
+    console.error('No token found in localStorage');
+  }
   return {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}`,
@@ -25,13 +28,19 @@ export const getTestimonials = async () => {
 
 export const getTestimonialByUser = async () => {
   try {
-    const { data } = await axios.get(`${API_BASE_URL}/testimonials/user`);
+    const headers = getAuthHeaders();
+    console.log('Headers being sent:', headers); // Log the headers to be sent
+
+    // Pass the headers as the second argument to axios.get
+    const { data } = await axios.get(`${API_BASE_URL}/testimonials/user`, {
+      headers: headers,
+    });
     if (!data) {
       throw new Error('Failed to fetch testimonials');
     }
     return data;
   } catch (error) {
-    console.error(error);
+    console.error('Error in getTestimonialByUser:', error);
     return null;
   }
 };
