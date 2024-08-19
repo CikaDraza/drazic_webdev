@@ -15,10 +15,13 @@ const BackOffice = () => {
     fetchProjects();
   }, []);
 
-  const handleDelete = async (id) => {
-    const success = await deleteProject(id);
-    if (success) {
-      setProjects(projects.filter(project => project._id !== id));
+  const handleDelete = async (projectId) => {
+    const deletedProject = await deleteProject(projectId);
+  
+    if (deletedProject) {
+      fetchProjects();
+    } else {
+      console.error('Failed to delete the project');
     }
   };
 
@@ -87,7 +90,7 @@ const BackOffice = () => {
         </thead>
         <tbody>
           {projects.map(project => (
-            <tr key={project.id}>
+            <tr key={project._id}>
               <td>{editId === project._id ? <input type="text" name="title" value={editProject?.title} onChange={handleChange} /> : project.title}</td>
               <td>{editId === project._id ? <input type="text" name="description" value={editProject?.description} onChange={handleChange} /> : project.description}</td>
               <td>
@@ -103,7 +106,7 @@ const BackOffice = () => {
               <td>
                 {editId === project._id ? (
                   <>
-                    <input type="text" name="colors" value={editProject?.color || ''} onChange={handleChange} placeholder="Color" />
+                    <input type="text" name="color" value={editProject?.color || ''} onChange={handleChange} placeholder="Color" />
                   </>
                 ) : `${project.color}`}
               </td>
@@ -120,7 +123,7 @@ const BackOffice = () => {
                 ) : (
                   <>
                     <button className='action-btns edit-btn' onClick={() => handleEdit(project)}>Edit</button>
-                    <button className='action-btns delete-btn' onClick={() => handleDelete(project.id)}>Delete</button>
+                    <button className='action-btns delete-btn' onClick={() => handleDelete(project._id)}>Delete</button>
                   </>
                 )}
               </td>
@@ -139,7 +142,7 @@ const BackOffice = () => {
                 </select>
               </td>
               <td>
-                <input type="text" name="colors" value={editProject?.colors || ''} onChange={handleChange} placeholder="Color" />
+                <input type="text" name="color" value={editProject?.color || ''} onChange={handleChange} placeholder="Color" />
               </td>
               <td><input type="text" name="image_url" value={editProject?.image_url || ''} onChange={handleChange} placeholder="Image URL" /></td>
               <td><input type="text" name="logo_url" value={editProject?.logo_url || ''} onChange={handleChange} placeholder="Logo URL" /></td>

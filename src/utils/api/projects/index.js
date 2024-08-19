@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = 'https://drazic-webdev-server.vercel.app/api';
+const API_BASE_URL = 'http://localhost:3000/api';
 
 const getAuthHeaders = () => {
   const token = localStorage.getItem('token');
@@ -38,11 +38,10 @@ export const getProjectById = async (id) => {
 
 export const createProject = async (project) => {
   try {
-    const { data } = await axios.post(`${API_BASE_URL}/projects/create`, project, {
+    const response = await axios.post(`${API_BASE_URL}/create_project`, project, {
       headers: getAuthHeaders(),
     });
-    
-    return data;
+    return response.data;
   } catch (error) {
     console.error('Error creating project:', error);
     return null;
@@ -52,12 +51,9 @@ export const createProject = async (project) => {
 
 export const updateProject = async (id, project) => {
   try {
-    const token = localStorage.getItem('token');
     const response = await axios.put(`${API_BASE_URL}/projects/${id}`, project, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: getAuthHeaders(),
+      method: 'PUT',
     });
     if (!response.data) {
       throw new Error('Failed to update project');
@@ -69,18 +65,19 @@ export const updateProject = async (id, project) => {
   }
 };
 
-export const deleteProject = async (id) => {
+export const deleteProject = async (projectId) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/projects/${id}`, {
-      method: 'DELETE',
+    const response = await axios.delete(`${API_BASE_URL}/projects/${projectId}`, {
       headers: getAuthHeaders(),
     });
-    if (!response.ok) {
+
+    if (response.status !== 200) {
       throw new Error('Failed to delete project');
     }
-    return true;
+
+    return response.data;
   } catch (error) {
-    console.error(error);
-    return false;
+    console.error('Error deleting project:', error);
+    return null;
   }
 };

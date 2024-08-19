@@ -32,7 +32,7 @@ function App() {
       const email = localStorage.getItem('user-email');
       
       // Fetch user data
-      const { data } = await axios.get(`https://drazic-webdev-server.vercel.app/api/users/${email}`, {
+      const { data } = await axios.get(`http://localhost:3000/api/users/${email}`, {
         method: 'GET',
         headers: getAuthHeaders(),
         body: JSON.stringify(email),
@@ -51,7 +51,7 @@ function App() {
 
   const handleLogin = async (email, password) => {
     try {
-      const { data } = await axios.post('https://drazic-webdev-server.vercel.app/api/login', {
+      const { data } = await axios.post('http://localhost:3000/api/login', {
         email,
         password
       });
@@ -429,7 +429,7 @@ function App() {
         isLoggedIn && user &&
         <section id="customize-testimonials">
             <div className="container">
-              <BackOfficeClient />
+              {/* <BackOfficeClient /> */}
             </div>
         </section>
       }

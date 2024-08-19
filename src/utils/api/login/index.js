@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = 'https://drazic-webdev-server.vercel.app/api';
+const API_BASE_URL = 'http://localhost:3000/api';
 
 export const loginUser = async (email, password) => {
   try {
