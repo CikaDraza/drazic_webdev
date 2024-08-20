@@ -1,19 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { createTestimonial, deleteTestimonial, getTestimonialByUser, getTestimonials, updateTestimonial } from '../utils/api/testimonials';
+import axios from 'axios';
+
+const getAuthHeaders = () => {
+  const token = localStorage.getItem('token');
+  return {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`,
+  };
+};
+
 
 const BackOfficeClient = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [editId, setEditId] = useState(null);
   const [editTestimonials, setEditTestimonials] = useState(null);
+  const [user, setUser] = useState(null);
 
-  const fetchTestimonials = async () => {
-    const user = JSON.parse(localStorage.getItem('user')); // assuming you store user info in localStorage
-    const fetchedTestimonials = user.isAdmin
-      ? await getTestimonials()
-      : await getTestimonialByUser(user.email);
-    setTestimonials(fetchedTestimonials || []);
+  const fetchUser = async () => {
+    try {      
+      const email = localStorage.getItem('user-email');
+      // Fetch user data
+      const { data } = await axios.get(`https://drazic-webdev-server.vercel.app/api/users/${email}`, {
+        method: 'GET',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(email),
+      });
+      setUser(data);
+    } catch (error) {
+      console.error('Error fetching user:', error);
+    }
   };
   
+  useEffect(() => {
+      fetchUser();
+  }, []);
+
+  const fetchTestimonials = async () => {
+    const fetchedTestimonials = user?.isAdmin
+    ? await getTestimonials()
+    : await getTestimonialByUser(user.email);
+    setTestimonials(fetchedTestimonials || []);
+  };
   
   useEffect(() => {
     fetchTestimonials();

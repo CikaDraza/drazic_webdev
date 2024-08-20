@@ -26,7 +26,7 @@ export const getTestimonials = async () => {
   }
 };
 
-export const getTestimonialByUser = async (email) => {
+export const getTestimonialByUser = async (email) => {  
   try {
     const { data } = await axios.get(`${API_BASE_URL}/testimonials/user/${email}`, {
       headers: getAuthHeaders(),
