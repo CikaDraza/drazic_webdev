@@ -26,21 +26,14 @@ export const getTestimonials = async () => {
   }
 };
 
-export const getTestimonialByUser = async () => {
+export const getTestimonialByUser = async (email) => {
   try {
-    const headers = getAuthHeaders();
-    console.log('Headers being sent:', headers); // Log the headers to be sent
-
-    // Pass the headers as the second argument to axios.get
-    const { data } = await axios.get(`${API_BASE_URL}/testimonials/user`, {
-      headers: headers,
+    const { data } = await axios.get(`${API_BASE_URL}/testimonials/user/${email}`, {
+      headers: getAuthHeaders(),
     });
-    if (!data) {
-      throw new Error('Failed to fetch testimonials');
-    }
     return data;
   } catch (error) {
-    console.error('Error in getTestimonialByUser:', error);
+    console.error(error);
     return null;
   }
 };

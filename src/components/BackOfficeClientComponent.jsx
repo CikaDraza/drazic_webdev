@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { createTestimonial, deleteTestimonial, getTestimonialByUser, updateTestimonial } from '../utils/api/testimonials';
+import { createTestimonial, deleteTestimonial, getTestimonialByUser, getTestimonials, updateTestimonial } from '../utils/api/testimonials';
 
 const BackOfficeClient = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -7,9 +7,13 @@ const BackOfficeClient = () => {
   const [editTestimonials, setEditTestimonials] = useState(null);
 
   const fetchTestimonials = async () => {
-    const fetchedTestimonials = await getTestimonialByUser();
+    const user = JSON.parse(localStorage.getItem('user')); // assuming you store user info in localStorage
+    const fetchedTestimonials = user.isAdmin
+      ? await getTestimonials()
+      : await getTestimonialByUser(user.email);
     setTestimonials(fetchedTestimonials || []);
   };
+  
   
   useEffect(() => {
     fetchTestimonials();
