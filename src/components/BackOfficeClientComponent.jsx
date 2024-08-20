@@ -10,7 +10,6 @@ const getAuthHeaders = () => {
   };
 };
 
-
 const BackOfficeClient = () => {
   const [testimonials, setTestimonials] = useState([]);
   const [editId, setEditId] = useState(null);
@@ -19,7 +18,7 @@ const BackOfficeClient = () => {
 
   const fetchUser = async () => {
     try {      
-      const email = localStorage.getItem('user-email');
+      const email = localStorage.getItem('user-email');      
       // Fetch user data
       const { data } = await axios.get(`https://drazic-webdev-server.vercel.app/api/users/${email}`, {
         method: 'GET',
@@ -45,7 +44,7 @@ const BackOfficeClient = () => {
   
   useEffect(() => {
     fetchTestimonials();
-  }, []);
+  }, [user]);
 
   const handleDelete = async (id) => {
     const success = await deleteTestimonial(id);
