@@ -27,9 +27,15 @@ export const getTestimonials = async () => {
 };
 
 export const getTestimonialByUser = async (email) => {  
+  console.log(email);
+  
   try {
+    const token = localStorage.getItem('token');
     const { data } = await axios.get(`${API_BASE_URL}/testimonials/user/${email}`, {
-      headers: getAuthHeaders(),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
     });
     return data;
   } catch (error) {

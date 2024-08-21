@@ -35,15 +35,22 @@ const BackOfficeClient = () => {
       fetchUser();
   }, []);
 
-  const fetchTestimonials = async () => {
-    const fetchedTestimonials = user?.isAdmin
-    ? await getTestimonials()
-    : await getTestimonialByUser(user?.email);
-    setTestimonials(fetchedTestimonials || []);
+  const fetchTestimonials = async (userEmail) => {    
+    try {
+      const fetchedTestimonials = user?.isAdmin
+      ? await getTestimonials()
+      : await getTestimonialByUser(userEmail);
+      setTestimonials(fetchedTestimonials || []);
+    } catch (error) {
+      console.error('Error fetching user testimonials:', error);
+    }
   };
   
   useEffect(() => {
-    fetchTestimonials();
+    const userEmail = user?.email;
+    if (userEmail) {
+      fetchTestimonials(userEmail);
+    }
   }, [user]);
 
   const handleDelete = async (id) => {
