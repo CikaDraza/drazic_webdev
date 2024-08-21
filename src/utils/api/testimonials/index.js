@@ -2,17 +2,6 @@ import axios from "axios";
 
 const API_BASE_URL = 'https://drazic-webdev-server.vercel.app/api';
 
-const getAuthHeaders = () => {
-  const token = localStorage.getItem('token');
-  if (!token) {
-    console.error('No token found in localStorage');
-  }
-  return {
-    'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token}`,
-  };
-};
-
 export const getTestimonials = async () => {
   try {
     const { data } = await axios.get(`${API_BASE_URL}/testimonials`);
@@ -27,16 +16,8 @@ export const getTestimonials = async () => {
 };
 
 export const getTestimonialByUser = async (email) => {  
-  console.log(email);
-  
   try {
-    const token = localStorage.getItem('token');
-    const { data } = await axios.get(`${API_BASE_URL}/testimonials/user/${email}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    });
+    const { data } = await axios.get(`${API_BASE_URL}/testimonials/user/${email}`);
     return data;
   } catch (error) {
     console.error(error);
