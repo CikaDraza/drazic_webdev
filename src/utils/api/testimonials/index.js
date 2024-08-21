@@ -40,15 +40,16 @@ export const getTestimonialByUser = async (email) => {
 
 export const createTestimonial = async (testimonial) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/testimonials`, {
-      method: 'POST',
-      headers: getAuthHeaders(),
-      body: JSON.stringify(testimonial),
+    const token = localStorage.getItem('token');
+    const { data } = await axios.post(`${API_BASE_URL}/testimonials`, testimonial, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
     });
-    if (!response.ok) {
+    if (!data) {
       throw new Error('Failed to create testimonial');
     }
-    const data = await response.json();
     return data;
   } catch (error) {
     console.error(error);

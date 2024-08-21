@@ -38,7 +38,7 @@ const BackOfficeClient = () => {
   const fetchTestimonials = async () => {
     const fetchedTestimonials = user?.isAdmin
     ? await getTestimonials()
-    : await getTestimonialByUser(user.email);
+    : await getTestimonialByUser(user?.email);
     setTestimonials(fetchedTestimonials || []);
   };
   
@@ -81,11 +81,11 @@ const BackOfficeClient = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setEditTestimonials(prevState => ({ ...prevState, [name]: value }));
+    setEditTestimonials(prevState => ({ ...prevState, [name]: value }));    
   };
 
   const handleCreate = async () => {
-    const newTestimonials = await createTestimonial(editTestimonials);
+    const newTestimonials = await createTestimonial(editTestimonials);    
     if (newTestimonials) {
       fetchTestimonials();
       setEditId(null);
@@ -99,6 +99,7 @@ const BackOfficeClient = () => {
         <thead>
           <tr>
             <th>Client Title</th>
+            <th>Client Email</th>
             <th>Client Name</th>
             <th>Text</th>
             <th>Image URL</th>
@@ -110,6 +111,7 @@ const BackOfficeClient = () => {
           {testimonials.map(testimonial => (
             <tr key={testimonial._id}>
               <td>{editId === testimonial._id ? <input type="text" name="client_title" value={editTestimonials?.client_title} onChange={handleChange} /> : testimonial.client_title}</td>
+              <td>{editId === testimonial._id ? <input type="text" name="client_email" value={editTestimonials?.client_email} onChange={handleChange} /> : testimonial.client_email}</td>
               <td>{editId === testimonial._id ? <input type="text" name="client_name" value={editTestimonials?.client_name} onChange={handleChange} /> : testimonial.client_name}</td>
               <td>{editId === testimonial._id ? <textarea name="text" value={editTestimonials?.text} onChange={handleChange} /> : testimonial.text}</td>
               <td>{editId === testimonial._id ? <input type="text" name="image_url" value={editTestimonials?.image_url} onChange={handleChange} /> : testimonial.image_url}</td>
@@ -144,6 +146,7 @@ const BackOfficeClient = () => {
             editId === null && (
             <tr>
               <td><input type="text" name="client_title" value={editTestimonials?.client_title || ''} onChange={handleChange} placeholder="Client Title" /></td>
+              <td><input type="text" name="client_email" value={editTestimonials?.client_email || ''} onChange={handleChange} placeholder="Client Email" /></td>
               <td><input type="text" name="client_name" value={editTestimonials?.client_name || ''} onChange={handleChange} placeholder="Client Name" /></td>
               <td className='text-area'>
                 <textarea name="text" value={editTestimonials?.text || ''} onChange={handleChange} placeholder="Text" />
