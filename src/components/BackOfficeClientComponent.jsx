@@ -37,9 +37,7 @@ const BackOfficeClient = () => {
 
   const fetchTestimonials = async (userEmail) => {    
     try {
-      const fetchedTestimonials = user?.isAdmin
-      ? await getTestimonials()
-      : await getTestimonialByUser(userEmail);
+      const fetchedTestimonials = await getTestimonialByUser(userEmail);
       setTestimonials(fetchedTestimonials || []);
     } catch (error) {
       console.error('Error fetching user testimonials:', error);

@@ -17,7 +17,11 @@ export const getTestimonials = async () => {
 
 export const getTestimonialByUser = async (email) => {  
   try {
-    const { data } = await axios.get(`${API_BASE_URL}/testimonials/user/${email}`);
+    const { data } = await axios.get(`${API_BASE_URL}/testimonials/user/${email}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+    });
     return data;
   } catch (error) {
     console.error(error);
