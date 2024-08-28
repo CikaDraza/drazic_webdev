@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = 'https://drazic-webdev-server.vercel.app/api';
+const API_BASE_URL = 'http://localhost:3000/api';
 
 export const getTestimonials = async () => {
   try {
@@ -48,9 +48,11 @@ export const createTestimonial = async (testimonial) => {
   }
 };
 
-export const updateTestimonial = async (id, testimonial) => {
+export const updateTestimonial = async (id, testimonial) => {  
   try {
     const token = localStorage.getItem('token');
+    console.log(id, testimonial, token);
+    
     const response = await axios.put(`${API_BASE_URL}/testimonials/${id}`, testimonial, {
       headers: {
         'Content-Type': 'application/json',

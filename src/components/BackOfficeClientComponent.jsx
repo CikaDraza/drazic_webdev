@@ -60,7 +60,7 @@ const BackOfficeClient = () => {
 
   const handleEdit = (testimonial) => {
     setEditId(testimonial._id);
-    setEditTestimonials(testimonial);
+    setEditTestimonials(testimonial);    
   };
 
   const handleCancel = () => {
@@ -73,7 +73,7 @@ const BackOfficeClient = () => {
       const updatedTestimonials = { ...editTestimonials };
       const response = await updateTestimonial(editId, updatedTestimonials);
       if (response) {
-        fetchTestimonials();
+        fetchTestimonials(user?.email);
         setEditId(null);
         setEditTestimonials(null);
       } else {
