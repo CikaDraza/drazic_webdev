@@ -105,6 +105,12 @@ header {
   left: -4%;
   padding-right: 4%;
   position: absolute;
+  @include tablet {
+    height: 50%;
+  }
+  @include mobile {
+    height: 50%;
+  }
 }
 
 .right {
@@ -114,6 +120,18 @@ header {
   height: 100%;
   right: 0%;
   position: absolute;
+  @include tablet {
+    height: 50%;
+    top: 50%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  @include mobile {
+    height: 50%;
+    top: 50%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
 
 .hero-content {
@@ -122,6 +140,12 @@ header {
   height: 100%;
   width: 100%;
   position: relative;
+  @include tablet {
+    flex-wrap: wrap;
+  }
+  @include mobile {
+    flex-wrap: wrap;
+  }
 }
 
 .introduction {
@@ -129,6 +153,17 @@ header {
   flex: 0 0 25%;
   max-width: 25%;
   left: -100%;
+  @include tablet {
+    top: 8rem;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  @include mobile {
+    top: 8rem;
+    flex: 0 0 100%;
+    max-width: 100%;
+    z-index: 1;
+  }
 }
 
 .caption h2 {
@@ -136,6 +171,14 @@ header {
   color: #2C2C2C;
   letter-spacing: normal;
   line-height: normal;
+  br {
+    @include tablet {
+      display: none;
+    }
+    @include mobile {
+      display: none;
+    }
+  }
 }
 
 .caption p {
@@ -174,6 +217,28 @@ header {
   svg {
     margin-left: -25%;
   }
+  @include tablet {
+    transform: translateX(0%);
+    flex: 0 0 100%;
+    max-width: 100%;
+    z-index: 0;
+    svg {
+      margin-left: 0%;
+      width: 100%;
+      height: 400px;
+    }
+  }
+  @include mobile {
+    transform: translateX(0%);
+    flex: 0 0 100%;
+    max-width: 100%;
+    z-index: 0;
+    svg {
+      margin-left: 0%;
+      width: 100%;
+      height: 300px;
+    }
+  }
 }
 
 .job_description {
@@ -192,6 +257,20 @@ header {
   }
   p {
     font-size: 1.5rem;
+  }
+  @include tablet {
+    flex: 0 0 100%;
+    max-width: 100%;
+    .wrapper {
+      padding-left: 0%;
+    }
+  }
+  @include mobile {
+    flex: 0 0 100%;
+    max-width: 100%;
+    .wrapper {
+      padding-left: 0%;
+    }
   }
 }
 
@@ -235,30 +314,50 @@ section#services {
       max-width: calc(40% - 1rem);
       background-color: #37CEFD;
       box-sizing: border-box;
+      @include mobile {
+        flex: 0 0 100%;
+        max-width: calc(100% - 0rem);
+      }
     }
     .development-service {
       flex: 0 0 60%;
       max-width: calc(60% - 1rem);
       background-color: #FFB633;
       box-sizing: border-box;
+      @include mobile {
+        flex: 0 0 100%;
+        max-width: calc(100% - 0rem);
+      }
     }
     .mobile-service {
       flex: 0 0 30%;
       max-width: calc(30% - 1rem);
       background-color: #EF59BC;
       box-sizing: border-box;
+      @include mobile {
+        flex: 0 0 100%;
+        max-width: calc(100% - 0rem);
+      }
     }
     .marketing-service {
       flex: 0 0 33.33%;
       max-width: calc(33.33% - 1rem);
       background-color: #33CB86;
       box-sizing: border-box;
+      @include mobile {
+        flex: 0 0 100%;
+        max-width: calc(100% - 0rem);
+      }
     }
     .cloud-service {
       flex: 0 0 36.66%;
       max-width: calc(36.66% - 1rem);
       background-color: #B276E6;
       box-sizing: border-box;
+      @include mobile {
+        flex: 0 0 100%;
+        max-width: calc(100% - 0rem);
+      }
     }
   }
 }
@@ -294,6 +393,12 @@ section#projects {
   .slider-container {
     margin: 3rem 0;
     padding: 0 10rem;
+    @include tablet {
+      padding: 0 0rem;
+    }
+    @include mobile {
+      padding: 0 0rem;
+    }
     .slick-slider {
       position: relative;
       .slick-arrow.slick-next {
@@ -308,6 +413,11 @@ section#projects {
         z-index: 1;
       }
     }
+    .slick-list {
+      @include mobile {
+        padding: 2rem 0;
+      }
+    }
   }
   .slider-testimonial-card {
     width: 100%;
@@ -317,6 +427,7 @@ section#projects {
     justify-content: center;
   }
   .slider-testimonial-card__card-content {
+    position: relative;
     background-color: #000;
     padding: 2rem 3rem;
     border-radius: 1rem;
@@ -343,6 +454,26 @@ section#projects {
   .slider-testimonial-card__card-media {
     width: 400px;
     height: 450px;
+    overflow: hidden;
+    border-radius: 150px;
+    padding: 0;
+    margin-left: 2rem;
+    .testimonial-image {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      padding: 0!important;
+    }
+  }
+  .slider-testimonial-card__card-media--mobile {
+    position: absolute;
+    right: -3rem;
+    bottom: -1rem;
+    width: 100px;
+    height: 200px;
     overflow: hidden;
     border-radius: 150px;
     padding: 0;
@@ -847,4 +978,27 @@ footer {
 
 .read-the-docs {
   color: #888;
+}
+
+.footer-links .wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .copyright {
+    a {
+      font-size: .875rem;
+    }
+  }
+  .nav-list {
+    ul {
+      list-style: none;
+      display: flex;
+      li {
+        margin-left: 1rem;
+        a {
+          font-size: .875rem;
+        }
+      }
+    }
+  }
 }

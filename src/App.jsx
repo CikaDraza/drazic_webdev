@@ -9,6 +9,7 @@ import TestimonialCarousel from './components/TestimonialCarousel';
 import BackOfficeClient from './components/BackOfficeClientComponent';
 import ContactForm from './components/ContactForm';
 import FooterAnimation from './components/FooterAnimation';
+import useMediaQuery from './utils/useMediaQuery';
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
@@ -18,6 +19,7 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
+  const match = useMediaQuery('(max-width: 1200px)');
 
   const getAuthHeaders = () => {
     const token = localStorage.getItem('token');
@@ -99,8 +101,8 @@ function App() {
     // Animate left column width
     timeline.to('.left', {
       width: '100%',
-      flex: '0 0 40%',
-      maxWidth: '40%',
+      flex: match ? '0 0 100%' : '0 0 40%',
+      maxWidth: match ? '100%' : '40%',
       duration: 1.5,
       ease: 'power2.out'
     });
@@ -131,7 +133,7 @@ function App() {
       duration: 1,
       ease: 'power2.out'
     }, '-=1.2');
-  }, []);
+  }, [match]);
 
   return (
     <>
@@ -175,6 +177,7 @@ function App() {
                     <ul>
                       <li><a href="#services">Services</a></li>
                       <li><a href="#projects">Projects</a></li>
+                      <li><a href="#testimonials">Testimonials</a></li>
                       <li><a href="#contact">Contact</a></li>
                       {
                         !isLoggedIn ?
@@ -457,6 +460,23 @@ function App() {
             <FooterAnimation />
             <div className="caption">
               <span>Thank you for caming</span>
+            </div>
+          </div>
+        </div>
+        <div className="footer-links">
+          <div className="container">
+            <div className="wrapper">
+              <div className="copyright">
+              {'Copyright © '}{new Date().getFullYear()}. <a href="#hero">drazic webdev</a>
+              </div>
+              <nav className='nav-list'>
+                <ul>
+                  <li><a href="#services">Services</a></li>
+                  <li><a href="#projects">Projects</a></li>
+                  <li><a href="#testimonials">Testimonials</a></li>
+                  <li><a href="#contact">Contact</a></li>
+                </ul>
+              </nav>
             </div>
           </div>
         </div>

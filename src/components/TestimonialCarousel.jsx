@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Slider from "react-slick"
 import { getTestimonials } from '../utils/api/testimonials'
 import TestimonialsIcon from '../assets/icons/TestimonialsIcon';
+import useMediaQuery from '../utils/useMediaQuery';
 
 const NextArrow = (props) => {
   const { className, onClick } = props;
@@ -49,6 +50,7 @@ const ReadOnlyRating = ({ rating }) => {
 
 export default function TestimonialCarousel() {
   const [testimonials, setTestimonials] = useState([]);
+  const match = useMediaQuery('(max-width: 1200px)');
 
   useEffect(() => {
     const fetchAllTestimonials = async () => {
@@ -102,11 +104,21 @@ export default function TestimonialCarousel() {
                 <h4 className="card-client-title">
                   {testimonial.client_title}
                 </h4>
+                {
+                  match &&
+                  <div className="slider-testimonial-card__card-media--mobile">
+                    <div className="testimonial-image" style={{backgroundImage: `url(${testimonial?.image_url})`}}>
+                    </div>
+                  </div>
+                }
               </div>
-              <div className="slider-testimonial-card__card-media">
-                <div className="testimonial-image" style={{backgroundImage: `url(${testimonial?.image_url})`}}>
+              {
+                !match &&
+                <div className="slider-testimonial-card__card-media">
+                  <div className="testimonial-image" style={{backgroundImage: `url(${testimonial?.image_url})`}}>
+                  </div>
                 </div>
-              </div>
+              }
             </div>
           ))
         }
