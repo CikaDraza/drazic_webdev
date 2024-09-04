@@ -39,6 +39,9 @@ header {
   .row {
     display: flex;
     align-items: center;
+    @include mobile {
+      flex-wrap: wrap;
+    }
     .column {
       width: 100%;
       .logo {
@@ -68,6 +71,11 @@ header {
         justify-content: flex-end;
         cursor: pointer;
         position: relative;
+        @include mobile {
+          position: absolute;
+          right: 5%;
+          top: 20%;
+        }
         nav {
           margin-top: 1rem;
           top: 100%;
@@ -162,7 +170,7 @@ header {
     top: 8rem;
     flex: 0 0 100%;
     max-width: 100%;
-    z-index: 1;
+    z-index: 0;
   }
 }
 
@@ -171,6 +179,9 @@ header {
   color: #2C2C2C;
   letter-spacing: normal;
   line-height: normal;
+  @include mobile {
+    font-size: 4rem;
+  }
   br {
     @include tablet {
       display: none;
@@ -229,10 +240,10 @@ header {
     }
   }
   @include mobile {
-    transform: translateX(0%);
+    transform: translateX(20%);
     flex: 0 0 100%;
     max-width: 100%;
-    z-index: 0;
+    z-index: 1;
     svg {
       margin-left: 0%;
       width: 100%;
@@ -245,7 +256,7 @@ header {
   flex: 0 0 50%;
   max-width: 50%;
   position: relative;
-  right: -100%; // Start off-screen to the right
+  right: -120%; // Start off-screen to the right
   display: flex;
   justify-content: flex-end;
   .wrapper {
@@ -254,6 +265,9 @@ header {
   h1 {
     color: #FFB633;
     font-size: 6rem;
+    @include mobile {
+      font-size: 4rem;
+    }
   }
   p {
     font-size: 1.5rem;
@@ -279,6 +293,10 @@ section:not(#hero) {
   .headline {
     flex: 0 0 50%;
     max-width: 50%;
+    @include mobile {
+      flex: 0 0 100%;
+      max-width: 100%;
+    }
     hr {
       width: 4rem;
       text-align: left;
@@ -495,8 +513,7 @@ section#projects {
     width: 110px;
     height: 24px;
     overflow: hidden;
-  }
-  
+  }  
   .rating:before,
   .rating:after {
     content: "★★★★★";
@@ -542,6 +559,9 @@ section#projects {
     justify-content: center;
     .column {
       width: auto;
+      @include mobile {
+        width: 100%;
+      }
     }
   }
   .form-row {
@@ -552,14 +572,12 @@ section#projects {
       .contact-form {
         margin: auto;
         padding: 1.5rem;
-        padding-right: 2rem;
-        padding-left: 0;
         background-color: #242424;
         border-radius: 1rem;
       }
       .input-field {
         position: relative;
-        margin: 2rem 0 0 2rem;
+        margin: 2rem 0 0 0rem;
         width: 100%;
       }
       input {
@@ -570,6 +588,10 @@ section#projects {
         border: thin solid #cdcdcd;
         border-radius: 1rem;
         color: #f4f4f4;
+        box-sizing: border-box;
+        @include mobile {
+          width: 100%;
+        }
       }
       fieldset {
         position: absolute;
@@ -620,8 +642,6 @@ section#projects {
 
 footer {
   height: auto;
-  #footer_loader_container {
-  }
 }
 
 #thank-you-card {
@@ -706,6 +726,9 @@ footer {
   flex-wrap: wrap;
   align-items: stretch;
   overflow: hidden;
+  @include mobile {
+    height: 600px;
+  }
   .slider-card__card-media {
     height: 50%;
     max-height: 50%;
@@ -768,6 +791,9 @@ footer {
       box-sizing: border-box;
       cursor: pointer;
       width: 100%;
+      @include mobile {
+        padding: .75rem 0;
+      }
     }
     .btn-preview {
       background-color: #f4f4f4;
@@ -933,7 +959,6 @@ footer {
       background-color: red;
       color: #f4f4f4;
     }
-    
   }
 }
 
@@ -984,6 +1009,11 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  @include mobile {
+    padding-top: 1rem;
+    justify-content: center;
+  }
   .copyright {
     a {
       font-size: .875rem;
@@ -993,6 +1023,14 @@ footer {
     ul {
       list-style: none;
       display: flex;
+      @include mobile {
+        padding-left: 0;
+      }
+      & li:first-child {
+        @include mobile {
+         margin-left: 0; 
+        }
+      }
       li {
         margin-left: 1rem;
         a {

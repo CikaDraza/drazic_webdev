@@ -137,7 +137,10 @@ function App() {
 
   return (
     <>
+    {
+      match ? null :
       <PreLoader />
+    }
       <header className='header'>
         <div className="container">
           <div className="row">

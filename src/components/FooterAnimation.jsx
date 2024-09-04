@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
+import useMediaQuery from '../utils/useMediaQuery';
 
 const FooterAnimation = () => {
   const containerRef = useRef(null);
@@ -9,6 +10,7 @@ const FooterAnimation = () => {
   const elm4Ref = useRef(null);
   const elm5Ref = useRef(null);
   const [percent, setPercent] = useState(0);
+  const match = useMediaQuery('(max-width: 1200px)');
 
   useEffect(() => {
     // Function to start the animation
@@ -29,11 +31,11 @@ const FooterAnimation = () => {
         onComplete: () => setPercent(100)
       });
 
-      tl.to(elm1Ref.current, { opacity: 1, y: '500px', duration: 1 })
-        .to(elm2Ref.current, { x: '-500px', duration: 1 }, '-=1')
-        .to(elm3Ref.current, { y: '-500px', duration: 1 }, '-=1')
-        .to(elm4Ref.current, { x: '500px', duration: 1 }, '-=1')
-        .to(elm5Ref.current, { y: '500px', duration: 1 }, '-=1');
+      tl.to(elm1Ref.current, { opacity: 1, y: match ? '300px' : '500px', duration: 1 })
+        .to(elm2Ref.current, { x: '-1024px', duration: 1 }, '-=1')
+        .to(elm3Ref.current, { y: '-1024px', duration: 1 }, '-=1')
+        .to(elm4Ref.current, { x: '1024px', duration: 1 }, '-=1')
+        .to(elm5Ref.current, { y: '1024px', duration: 1 }, '-=1');
     };
 
     // Create an IntersectionObserver to start the animation when in view
