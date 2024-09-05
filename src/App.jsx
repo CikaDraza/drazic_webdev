@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ProjectCarousel from './components/ProjectCarousel';
 import PreLoader from './components/PreLoader';
 import gsap from 'gsap';
@@ -116,7 +116,7 @@ function App() {
 
     // Animate me-photo div
     timeline.to('.me-photo', {
-      bottom: '0%',
+      bottom: match ? '20%' : '0%',
       duration: 1.5,
       ease: 'bounce.out'
     }, '-=1');
@@ -137,10 +137,7 @@ function App() {
 
   return (
     <>
-    {
-      match ? null :
       <PreLoader />
-    }
       <header className='header'>
         <div className="container">
           <div className="row">

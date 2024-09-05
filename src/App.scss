@@ -102,6 +102,9 @@ header {
 .hero-section {
   height: 100vh;
   overflow: hidden;
+  @include mobile {
+    height: 120vh;
+  }
 }
 
 .left {
@@ -117,7 +120,7 @@ header {
     height: 50%;
   }
   @include mobile {
-    height: 50%;
+    height: 70%;
   }
 }
 
@@ -129,13 +132,11 @@ header {
   right: 0%;
   position: absolute;
   @include tablet {
-    height: 50%;
     top: 50%;
     flex: 0 0 100%;
     max-width: 100%;
   }
   @include mobile {
-    height: 50%;
     top: 50%;
     flex: 0 0 100%;
     max-width: 100%;
@@ -167,7 +168,7 @@ header {
     max-width: 100%;
   }
   @include mobile {
-    top: 8rem;
+    top: 24rem;
     flex: 0 0 100%;
     max-width: 100%;
     z-index: 0;
@@ -180,7 +181,7 @@ header {
   letter-spacing: normal;
   line-height: normal;
   @include mobile {
-    font-size: 4rem;
+    font-size: 3.5rem;
   }
   br {
     @include tablet {
@@ -194,10 +195,12 @@ header {
 
 .caption p {
   font-size: 1.5rem;
-  font-weight: 300;
   color: #2C2C2C;
   margin: .5rem 0;
   font-weight: 500;
+  @include mobile {
+    font-size: 1.25rem;
+  }
 }
 
 .introduction .caption {
@@ -240,7 +243,7 @@ header {
     }
   }
   @include mobile {
-    transform: translateX(20%);
+    transform: translateX(0%);
     flex: 0 0 100%;
     max-width: 100%;
     z-index: 1;
