@@ -19,7 +19,7 @@
   top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 5;
+  z-index: 10;
 }
 
 .show {
@@ -719,6 +719,9 @@ footer {
     width: 100%;
     padding: 0 1rem;
     box-sizing: border-box;
+    @include mobile {
+      padding: 0 .5rem;
+    }
   }
 }
 
@@ -734,14 +737,12 @@ footer {
     height: 600px;
   }
   .slider-card__card-media {
-    height: 50%;
-    max-height: 50%;
-    margin: auto;
+    height: auto;
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
     box-sizing: border-box;
-    margin: 1rem;
+    margin: auto;
     .logo {
       display: flex;
       justify-content: flex-end;
@@ -1041,6 +1042,9 @@ footer {
           font-size: .875rem;
         }
         @include mobile {
+          a {
+            font-size: .75rem;
+          }
           margin-left: .75rem;
         }
       }
