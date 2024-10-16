@@ -48,7 +48,7 @@ const PreLoader = () => {
   if (!isVisible) return null;
 
   return (
-    <div id="loader_container" ref={loaderContainerRef} style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'fixed', top: 0, left: 0, zIndex: 5 }}>
+    <div id="loader_container" ref={loaderContainerRef} style={{ width: '100%', height: '100%', overflow: 'hidden', position: 'fixed', top: 0, left: 0, zIndex: 20 }}>
       {
         match ?
         null
@@ -57,7 +57,7 @@ const PreLoader = () => {
           <path d="M226.333 255.608L1142.83 0.607822L1529.83 535.109L755.333 1059.11L167.334 1000.61L0.8335 873.109L226.333 255.608Z" fill="#2C2C2C"/>
         </svg>
       }
-      <div id="loader-caption" style={{ position: 'relative', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', zIndex: 4 }}>
+      <div ref={textRef} id="loader-caption" style={{ backgroundColor: !match ? 'transparent' : '#242424', position: 'relative', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', textAlign: 'center', zIndex: 20 }}>
         <div ref={textRef} style={{ fontSize: '1.5rem', fontWeight: 'normal', marginBottom: '5px', letterSpacing: 1.5 }}>
           <a href="#">drazic webdev</a>
         </div>

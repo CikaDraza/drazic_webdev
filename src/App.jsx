@@ -100,9 +100,7 @@ function App() {
     const timeline = gsap.timeline({ delay: 2.2 });
     // Animate left column width
     timeline.to('.left', {
-      width: '100%',
-      flex: match ? '0 0 100%' : '0 0 40%',
-      maxWidth: match ? '100%' : '40%',
+      width: match ? '100%' : '40%',
       duration: 1.5,
       ease: 'power2.out'
     });
@@ -422,6 +420,9 @@ function App() {
                 <h2>Testimonials</h2>
                 <hr />
                 <p>No matter the size of the client's business, I always give my best effort. Sometimes it's challenging, sometimes it's easier, but I always strive to find the best solution for both. But don't just take my word for it, see what they say about me.</p>
+                <p>
+                  <small>If you were my client, contact me to leave testimonials. It would mean a lot to me. Thank you!</small>
+                </p>
               </div>
             </div>
           </div>
