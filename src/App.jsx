@@ -19,7 +19,12 @@ function App() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [user, setUser] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('all');
   const match = useMediaQuery('(max-width: 1200px)');
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+  };
 
   const getAuthHeaders = () => {
     const token = localStorage.getItem('token');
@@ -389,15 +394,15 @@ function App() {
               <div className="column nav-project">
                 <nav>
                   <ul>
-                    <li>all projects</li>
-                    <li>web app</li>
-                    <li>mobile app</li>
-                    <li>e-commerce</li>
+                  <li onClick={() => handleCategoryChange('all')} className={selectedCategory === 'all' ? 'active' : ''}>All Projects</li>
+                    <li onClick={() => handleCategoryChange('Web app')} className={selectedCategory === 'Web app' ? 'active' : ''}>Web App</li>
+                    <li onClick={() => handleCategoryChange('Mobile app')} className={selectedCategory === 'Mobile app' ? 'active' : ''}>Mobile App</li>
+                    <li onClick={() => handleCategoryChange('E-commerce')} className={selectedCategory === 'E-commerce' ? 'active' : ''}>E-Commerce</li>
                   </ul>
                 </nav>
               </div>
             </div>
-            <ProjectCarousel />
+            <ProjectCarousel selectedCategory={selectedCategory} />
         </div>
       </section>
       <section id='customize-projects'>

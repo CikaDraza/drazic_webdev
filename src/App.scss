@@ -414,6 +414,9 @@ section#projects {
             color: #FFB633;
           }
         }
+        .active {
+          color: #FFB633;
+        }
       }
     }
   }
@@ -737,7 +740,7 @@ footer {
 .slider-card {
   border-radius: 1rem;
   box-sizing: border-box;
-  height: 500px;
+  height: auto;
   display: flex!important;
   flex-wrap: wrap;
   align-items: stretch;
@@ -755,10 +758,13 @@ footer {
     .logo {
       display: flex;
       justify-content: flex-end;
+      margin-top: 1rem;
       padding: 0;
+      width: 100%;
+      height: 35px;
     }
     .project-image {
-      height: 100%;
+      height: 225px;
       max-width: 100%;
       max-height: 100%;
       padding-top: 1rem;
@@ -822,8 +828,16 @@ footer {
   }
 }
 
+.no-image {
+  height: 500px;
+}
+
 .black {
   background: linear-gradient(90deg, #363636, #474747);
+}
+
+.grey {
+  background: linear-gradient(90deg, #828282, #c9c9c9);
 }
 
 .blue {
