@@ -126,7 +126,7 @@ console.log(filteredProjects);
           <div className={`slider-card grey no-image`}>
             <div className="slider-card__card-media">
               <div className="project-image">
-                <img src='https://drazic-webdev.vercel.app/no-image.jpg' alt='no image' />
+                <img src='https://drazic-webdev.vercel.app/no-category.jpg' alt='no image' />
               </div>
             </div>
             <div className="slider-card__card-content">
