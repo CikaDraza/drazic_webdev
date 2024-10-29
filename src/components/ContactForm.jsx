@@ -3,30 +3,56 @@ import { sendContactForm } from '../utils/api/contact';
 
 export default function ContactForm() {
   const formRef = useRef(null);
+  const pattern_email = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+  const pattern = /^0\d{8,10}$/;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    const formData = {
-      fullName: formRef.current['full-name'].value,
-      email: formRef.current['email'].value,
-      phone: formRef.current['phone'].value,
-      city: formRef.current['city'].value,
-      text: formRef.current['text'].value,
-    };
-  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const emailValue = formRef.current.querySelector('input[name="email"]');
+    const fullNameValue = formRef.current.querySelector('input[name="full-name"]');
+    const phoneValue = formRef.current.querySelector('input[name="phone"]');
+    const messageValue = formRef.current.querySelector('textarea[name="text"]');
+    const [errors, setErrors] = React.useState({
+      fullName: false,
+      email: false,
+      phone: false,
+      message: false
+    });
+
     try {
-      console.log("Request received on server:", formData);
-      const response = await sendContactForm(formData);
-      if (response?.ok) {
-        alert('Message sent successfully!');
-        formRef.current.reset();
-      } else {
-        alert('Failed to send message.');
+      const dataForm = new FormData(event.currentTarget);
+      const formOutput = {
+        email: dataForm.get('email'),
+        fullName: dataForm.get('full-name'),
+        phone: dataForm.get('phone'),
+        message: dataForm.get('text'),
       }
+
+      if (formOutput.fullName === '') {
+        setErrors({ ...errors, fullName: true });
+        return;
+      }
+      if(!pattern_email.test(formOutput.email)) {
+        setErrors({ ...errors, email: true });
+        return;
+      }
+      if(!pattern.test(formOutput.phone.toString())) {
+        setErrors({ ...errors, phone: true });
+        return;
+      }
+      if (formOutput.message === '') {
+        setErrors({ ...errors, message: true });
+        return;
+      }
+      
+      const { data } = await sendContactForm(formOutput);
+      setErrors({ ...errors, email: false, phone: false, imageLength: false });
+      emailValue.value = '';
+      fullNameValue.value = '';
+      phoneValue.value = '';
+      messageValue.value = '';
     } catch (error) {
-      console.error('Error sending message:', error.message);
-      alert('Error sending message.');
+      console.log(error);
     }
   };  
 
@@ -45,6 +71,7 @@ export default function ContactForm() {
                 </legend>
               </fieldset>
             </div>
+            {errors.fullName && <span>{"Please enter your name"}</span>}
           </div>
           <div className="column">
             <div className="input-field">
@@ -57,6 +84,7 @@ export default function ContactForm() {
                 </legend>
               </fieldset>
             </div>
+            {errors.email && <span>{"Please enter a valid email address"}</span>}
           </div>
         </div>
         <div className="row">
@@ -71,6 +99,7 @@ export default function ContactForm() {
                 </legend>
               </fieldset>
             </div>
+            {errors.phone && <span>{"Please enter a valid phone number"}</span>}
           </div>
           <div className="column">
             <div className="input-field">
@@ -96,6 +125,7 @@ export default function ContactForm() {
               </legend>
             </fieldset>
           </div>
+          {errors.message && <span>{"Please enter your question"}</span>}
         </div>
         <div className="row">
           <div className="column submit">
