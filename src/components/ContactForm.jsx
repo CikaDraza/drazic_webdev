@@ -19,11 +19,10 @@ export default function ContactForm() {
     try {
       const response = await sendContactForm(formData);
   
-      if (response.ok) {
+      if (response?.ok) {
         alert('Message sent successfully!');
         formRef.current.reset(); // Resetuj formu nakon uspešnog slanja
       } else {
-        console.log(formData);
         alert('Failed to send message.');
       }
     } catch (error) {
