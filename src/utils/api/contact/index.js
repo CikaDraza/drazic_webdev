@@ -9,7 +9,7 @@ export const sendContactForm = async (contactData) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: contactData,
+      body: JSON.stringify(contactData),
     });
     if (!response.data) {
       throw new Error('Failed to send emial');
