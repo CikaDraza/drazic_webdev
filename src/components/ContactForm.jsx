@@ -11,9 +11,11 @@ export default function ContactForm() {
     phone: false,
     message: false
   });
+  console.log(errors);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const emailValue = formRef.current.querySelector('input[name="email"]');
     const fullNameValue = formRef.current.querySelector('input[name="full-name"]');
     const phoneValue = formRef.current.querySelector('input[name="phone"]');
@@ -33,20 +35,23 @@ export default function ContactForm() {
         return;
       }
       if(!pattern_email.test(formOutput.email)) {
-        setErrors({ ...errors, email: true });
+        setErrors({ ...errors, email: true, fullName: false });
         return;
-      }
-      if(!pattern.test(formOutput.phone.toString())) {
-        setErrors({ ...errors, phone: true });
+      }      
+      if(!pattern.test(formOutput.phone.toString()) || formOutput.phone.toString() === '') {
+        setErrors({ ...errors, phone: true, email: false });
         return;
       }
       if (formOutput.message === '') {
-        setErrors({ ...errors, message: true });
+        setErrors({ ...errors, message: true, phone: false });
         return;
       }
+      setErrors({ ...errors, email: false, phone: false, fullName: false, message: false });
+      console.log(formOutput);
       
       const { data } = await sendContactForm(formOutput);
-      setErrors({ ...errors, email: false, phone: false, imageLength: false });
+      console.log(data);
+      
       emailValue.value = '';
       fullNameValue.value = '';
       phoneValue.value = '';
@@ -61,6 +66,7 @@ export default function ContactForm() {
       <form ref={formRef} onSubmit={handleSubmit} method="POST">
         <div className="row">
           <div className="column">
+            <div className="wrapper">
             <div className="input-field">
               <input type="text" name='full-name' id='full-name'/>
               <fieldset>
@@ -71,61 +77,70 @@ export default function ContactForm() {
                 </legend>
               </fieldset>
             </div>
-            {errors.fullName && <span>{"Please enter your name"}</span>}
-          </div>
-          <div className="column">
-            <div className="input-field">
-              <input type="email" name='email' id='email'/>
-              <fieldset>
-                <legend>
-                  <span>
-                    Email
-                  </span>
-                </legend>
-              </fieldset>
+            {errors.fullName && <span className='contact-errors'>{"Please enter your name"}</span>}
             </div>
-            {errors.email && <span>{"Please enter a valid email address"}</span>}
-          </div>
-        </div>
-        <div className="row">
-          <div className="column">
-            <div className="input-field">
-              <input type="phone" name='phone' id='phone'/>
-              <fieldset>
-                <legend>
-                  <span>
-                    Phone
-                  </span>
-                </legend>
-              </fieldset>
-            </div>
-            {errors.phone && <span>{"Please enter a valid phone number"}</span>}
           </div>
           <div className="column">
-            <div className="input-field">
-              <input type="text" name='city' id='city'/>
-              <fieldset>
-                <legend>
-                  <span>
-                    City
-                  </span>
-                </legend>
-              </fieldset>
+            <div className="wrapper">
+              <div className="input-field">
+                <input type="email" name='email' id='email'/>
+                <fieldset>
+                  <legend>
+                    <span>
+                      Email
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
+              {errors.email && <span className='contact-errors'>{"Please enter a valid email address"}</span>}
             </div>
           </div>
         </div>
         <div className="row">
-          <div className="input-field">
-            <textarea rows={2} name="text" id="text"></textarea>
-            <fieldset>
-              <legend>
-                <span>
-                  Message
-                </span>
-              </legend>
-            </fieldset>
+          <div className="column">
+            <div className="wrapper">
+              <div className="input-field">
+                <input type="phone" name='phone' id='phone'/>
+                <fieldset>
+                  <legend>
+                    <span>
+                      Phone
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
+              {errors.phone && <span className='contact-errors'>{"Please enter a valid phone number"}</span>}
+            </div>
           </div>
-          {errors.message && <span>{"Please enter your question"}</span>}
+          <div className="column">
+            <div className="wrapper">
+              <div className="input-field">
+                <input type="text" name='city' id='city'/>
+                <fieldset>
+                  <legend>
+                    <span>
+                      City
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          <div className="wrapper-text">
+            <div className="input-field">
+              <textarea rows={2} name="text" id="text"></textarea>
+              <fieldset>
+                <legend>
+                  <span>
+                    Message
+                  </span>
+                </legend>
+              </fieldset>
+            </div>
+            {errors.message && <span className='contact-errors'>{"Please enter your question"}</span>}
+          </div>
         </div>
         <div className="row">
           <div className="column submit">

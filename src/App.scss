@@ -594,6 +594,8 @@ section#projects {
         position: relative;
         margin: 2rem 0 0 0rem;
         width: 100%;
+        display: flex;
+        flex-wrap: wrap;
       }
       input {
         position: relative;
@@ -626,6 +628,12 @@ section#projects {
         top: 0%;
         transform: translateY(-50%);
         visibility: visible;
+      }
+      .contact-errors {
+        color: red;
+      }
+      .wrapper-text {
+        width: 100%;
       }
       textarea {
         width: 100%;
