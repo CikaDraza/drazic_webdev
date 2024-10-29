@@ -1,12 +1,34 @@
 import React, { useRef } from 'react'
+import { sendContactForm } from '../utils/api/contact';
 
 export default function ContactForm() {
   const formRef = useRef(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(e);
-  }
+  
+    const formData = {
+      fullName: formRef.current['full-name'].value,
+      email: formRef.current['email'].value,
+      phone: formRef.current['phone'].value,
+      city: formRef.current['city'].value,
+      text: formRef.current['text'].value,
+    };
+  
+    try {
+      const response = await sendContactForm(contactData);
+  
+      if (response.ok) {
+        alert('Message sent successfully!');
+        formRef.current.reset(); // Resetuj formu nakon uspešnog slanja
+      } else {
+        alert('Failed to send message.');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error.message);
+      alert('Error sending message.');
+    }
+  };  
 
   return (
     <div className='contact-form'>
