@@ -14,6 +14,7 @@ export default function ContactForm() {
       city: formRef.current['city'].value,
       text: formRef.current['text'].value,
     };
+  console.log(formData);
   
     try {
       const response = await sendContactForm(formData);
@@ -22,6 +23,7 @@ export default function ContactForm() {
         alert('Message sent successfully!');
         formRef.current.reset(); // Resetuj formu nakon uspešnog slanja
       } else {
+        console.log(formData);
         alert('Failed to send message.');
       }
     } catch (error) {

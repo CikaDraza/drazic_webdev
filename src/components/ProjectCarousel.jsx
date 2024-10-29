@@ -116,7 +116,6 @@ export default function ProjectCarousel({ selectedCategory }) {
       }
     ]
   };
-console.log(filteredProjects);
 
   return (
     <div className='slider-container'>
