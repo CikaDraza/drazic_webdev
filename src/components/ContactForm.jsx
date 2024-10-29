@@ -16,6 +16,7 @@ export default function ContactForm() {
     };
   
     try {
+      console.log("Request received on server:", formData);
       const response = await sendContactForm(formData);
       if (response?.ok) {
         alert('Message sent successfully!');
