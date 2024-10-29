@@ -4,17 +4,15 @@ const API_BASE_URL = 'https://drazic-webdev-server.vercel.app/api';
 
 export const sendContactForm = async (contactData) => {  
   try {
-    const response = await fetch(`${API_BASE_URL}/send_email`, {
-      method: 'POST',
+    const { data } = await axios.post(`${API_BASE_URL}/send_email`, {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(contactData),
+      contactData,
     });
-    if (!response.data) {
+    if (!data) {
       throw new Error('Failed to send emial');
     }
-    return response.data;
   } catch (error) {
     console.error('Contact form submission error:', error);
     throw new Error('Failed to send contact form');
