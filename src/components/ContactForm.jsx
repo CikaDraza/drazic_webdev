@@ -5,6 +5,12 @@ export default function ContactForm() {
   const formRef = useRef(null);
   const pattern_email = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
   const pattern = /^0\d{8,10}$/;
+  const [errors, setErrors] = React.useState({
+    fullName: false,
+    email: false,
+    phone: false,
+    message: false
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -12,12 +18,6 @@ export default function ContactForm() {
     const fullNameValue = formRef.current.querySelector('input[name="full-name"]');
     const phoneValue = formRef.current.querySelector('input[name="phone"]');
     const messageValue = formRef.current.querySelector('textarea[name="text"]');
-    const [errors, setErrors] = React.useState({
-      fullName: false,
-      email: false,
-      phone: false,
-      message: false
-    });
 
     try {
       const dataForm = new FormData(event.currentTarget);
