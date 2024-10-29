@@ -11,7 +11,6 @@ export default function ContactForm() {
     phone: false,
     message: false
   });
-  console.log(errors);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -47,11 +46,9 @@ export default function ContactForm() {
         return;
       }
       setErrors({ ...errors, email: false, phone: false, fullName: false, message: false });
-      console.log(formOutput);
-      
+
       const { data } = await sendContactForm(formOutput);
-      console.log(data);
-      
+        
       emailValue.value = '';
       fullNameValue.value = '';
       phoneValue.value = '';
