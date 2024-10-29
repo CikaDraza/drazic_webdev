@@ -14,14 +14,12 @@ export default function ContactForm() {
       city: formRef.current['city'].value,
       text: formRef.current['text'].value,
     };
-  console.log(formData);
   
     try {
       const response = await sendContactForm(formData);
-  
       if (response?.ok) {
         alert('Message sent successfully!');
-        formRef.current.reset(); // Resetuj formu nakon uspešnog slanja
+        formRef.current.reset();
       } else {
         alert('Failed to send message.');
       }

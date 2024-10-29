@@ -2,14 +2,14 @@ import axios from "axios";
 
 const API_BASE_URL = 'https://drazic-webdev-server.vercel.app/api';
 
-export const sendContactForm = async (contactData) => {
-  console.log('on api', contactData);
-  
+export const sendContactForm = async (contactData) => {  
   try {
-    const response = await axios.post(`${API_BASE_URL}/send_email`, contactData, {
+    const response = await fetch(`${API_BASE_URL}/send_email`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
+      body: JSON.stringify(contactData),
     });
     if (!response.data) {
       throw new Error('Failed to send emial');
