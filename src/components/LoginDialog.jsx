@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { loginUserWithVK } from '../utils/api/login_user_whit_vk/loginUserWhitVK';
 
 const LoginDialog = ({ isLoading, onClose, handleLogin, email, setEmail, password, setPassword }) => {
-  const vkLoginContainerRef = useRef(null); // Ref for the VK login button container
+  const vkLoginContainerRef = useRef(null);
 
   useEffect(() => {
     if (window.VKIDSDK) {
@@ -32,19 +32,17 @@ const LoginDialog = ({ isLoading, onClose, handleLogin, email, setEmail, passwor
       });
 
       function vkidOnSuccess(data) {
-        // Assuming `data` contains `token` and `email`
-        loginUserWithVK(data)
-        .then(userData => {
-          // Set user data in sessionStorage or state
-          sessionStorage.setItem('userData', JSON.stringify(userData));
-        })
-        .catch(error => {
-          console.error('Error logging in:', error);
-        });
+        console.log("Login Success Data:", data);
+        if (data) {
+          console.log("Storing userData to sessionStorage", data);
+          sessionStorage.setItem('userData', data);
+          console.log("Stored userData:", sessionStorage.getItem('userData'));
+        } else {
+          console.log("No token received:", data);
+        }
       }
 
       function vkidOnError(error) {
-        // Handle login errors
         console.error('VK login error:', error);
       }
     }

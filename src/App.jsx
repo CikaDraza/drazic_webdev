@@ -81,13 +81,8 @@ function App() {
 
   useEffect(() => {
     const storedData = sessionStorage.getItem('userData');
-    const userData = storedData ? JSON.parse(storedData) : null;
-    console.log('get session', storedData, 'userData', userData);
-    if (userData && userData.jwtToken) {
-      console.log('jwtToken exist', userData);
-    } else {
-      console.log('No token found');
-    }
+    console.log(storedData);
+    
   }, []);  
 
   const handleLogin = async (email, password) => {
