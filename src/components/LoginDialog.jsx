@@ -33,12 +33,17 @@ const LoginDialog = ({ isLoading, onClose, handleLogin, email, setEmail, passwor
 
       function vkidOnSuccess(data) {
         console.log("Login Success Data:", data);
-        if (data) {
-          console.log("Storing userData to sessionStorage", data);
-          sessionStorage.setItem('userData', data);
-          console.log("Stored userData:", sessionStorage.getItem('userData'));
+        if (data && data.access_token) {
+          const userData = {
+            jwtToken: data.access_token,
+            userId: data.user_id
+          };
+          sessionStorage.setItem('userData', JSON.stringify(userData));
+          alert('Login successful');
+          // Optionally call a function to update UI or redirect user
+          fetchUserDetails(userData.userId, userData.jwtToken); // Example function to handle user session
         } else {
-          console.log("No token received:", data);
+          console.error("Error: No access token received");
         }
       }
 

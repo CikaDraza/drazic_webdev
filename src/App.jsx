@@ -81,9 +81,16 @@ function App() {
 
   useEffect(() => {
     const storedData = sessionStorage.getItem('userData');
-    console.log(storedData);
-    
-  }, []);  
+    if (storedData) {
+      const { jwtToken, userId } = JSON.parse(storedData);
+      console.log("Retrieved JWT Token:", jwtToken);
+      console.log("Retrieved User ID:", userId);
+      // Set logged in status or perform additional actions
+      // setIsLoggedIn(true);
+      // fetchVKUser(userId, jwtToken);
+    }
+  }, []);
+  
 
   const handleLogin = async (email, password) => {
     try {
