@@ -10,6 +10,7 @@ import BackOfficeClient from './components/BackOfficeClientComponent';
 import ContactForm from './components/ContactForm';
 import FooterAnimation from './components/FooterAnimation';
 import useMediaQuery from './utils/useMediaQuery';
+import { loginUserWithVK } from './utils/api/login_user_whit_vk';
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
@@ -92,6 +93,7 @@ function App() {
     const storedData = sessionStorage.getItem('userData');
     if (storedData) {
       setIsLoggedVk(true);
+      loginUserWithVK(storedData);
     }
   }, []);
 
