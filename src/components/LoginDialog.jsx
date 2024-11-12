@@ -39,9 +39,9 @@ const LoginDialog = ({ isLoading, onClose, handleLogin, email, setEmail, passwor
             userId: data.user_id
           };
           sessionStorage.setItem('userData', JSON.stringify(userData));
-          alert('Login successful');
-          // Optionally call a function to update UI or redirect user
-          fetchUserDetails(userData.userId, userData.jwtToken); // Example function to handle user session
+          // alert('Login successful');
+          // // Optionally call a function to update UI or redirect user
+          // fetchUserDetails(userData.userId, userData.jwtToken); // Example function to handle user session
         } else {
           console.error("Error: No access token received");
         }
