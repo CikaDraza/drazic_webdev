@@ -93,7 +93,6 @@ function App() {
     const storedData = sessionStorage.getItem('userData');
     if (storedData) {
       setIsLoggedVk(true);
-      loginUserWithVK(storedData);
     }
   }, []);
 

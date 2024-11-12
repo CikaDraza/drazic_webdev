@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import { loginUserWithVK } from '../utils/api/login_user_whit_vk';
 
 const LoginDialog = ({ isLoading, onClose, handleLogin, email, setEmail, password, setPassword }) => {
   const vkLoginContainerRef = useRef(null);
