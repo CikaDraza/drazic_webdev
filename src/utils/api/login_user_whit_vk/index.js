@@ -3,9 +3,9 @@ import axios from "axios";
 const API_BASE_URL = 'https://drazic-webdev-server.vercel.app/api';
 
 export const loginUserWithVK = async (vkData) => {
-  const { userId, jwtToken } = vkData;  // Extracting userId and token from vkData
+  const params = vkData;  // Extracting userId and token from vkData
   try {
-    const response = await axios.post(`${API_BASE_URL}/login_user_with_vk/${userId}/${jwtToken}`);
+    const response = await axios.post(`${API_BASE_URL}/login_user_with_vk/${params}`);
     return response.data;
   } catch (error) {
     console.error('Social login error:', error);
