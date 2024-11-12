@@ -50,19 +50,24 @@ function App() {
     }
   };
 
-  const fetchVKUser = async () => {
+  const fetchVKUser = async (token) => {
     try {
-      const vkUserId = sessionStorage.getItem('userData');
-      const email = `vk_user_${vkUserId}@vk.com`;
+
+      const email = `vk_user_${token}@vk.com`;
       console.log(email);
       
-      // Fetch user data
-      const { data } = await axios.get(`https://drazic-webdev-server.vercel.app/api/users/${email}`, {
-        method: 'GET',
-        headers: getAuthHeaders(),
-        body: JSON.stringify(email),
-      });
-      setUser(data);
+      // if (userData && userData.jwtToken) {
+      // // Fetch user data
+      //   const { data } = await axios.get(`https://drazic-webdev-server.vercel.app/api/users/${email}`, {
+      //     method: 'GET',
+      //     headers: { 'Authorization': `Bearer ${token}` },
+      //     body: JSON.stringify(email),
+      //   });
+      //   if (response.status === 200) {
+      //     setUser(data);
+      //     console.log('User data:', data);
+      //   }
+      // }
     } catch (error) {
       console.error('Error fetching user:', error);
     }
@@ -75,13 +80,13 @@ function App() {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    const token = sessionStorage.getItem('userData');
-    console.log(token);
-    
-    if (token) {
-      setIsLoggedIn(true);
-      fetchVKUser();
-      alert('Login successful');
+    const storedData = sessionStorage.getItem('userData');
+    const userData = storedData ? JSON.parse(storedData) : null;
+    console.log('get session', storedData, 'userData', userData);
+    if (userData && userData.jwtToken) {
+      console.log('jwtToken exist', userData);
+    } else {
+      console.log('No token found');
     }
   }, []);  
 
@@ -116,12 +121,12 @@ function App() {
     handleLogin(email, password);
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem('token');
+  //   if (token) {
+  //     setIsLoggedIn(true);
+  //   }
+  // }, []);
 
   const handleLogout = () => {
     setIsLoggedIn(false);
