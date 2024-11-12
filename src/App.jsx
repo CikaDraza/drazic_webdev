@@ -49,12 +49,41 @@ function App() {
       console.error('Error fetching user:', error);
     }
   };
+
+  const fetchVKUser = async () => {
+    try {
+      const vkUserId = sessionStorage.getItem('userData');
+      const email = `vk_user_${vkUserId}@vk.com`;
+      console.log(email);
+      
+      // Fetch user data
+      const { data } = await axios.get(`https://drazic-webdev-server.vercel.app/api/users/${email}`, {
+        method: 'GET',
+        headers: getAuthHeaders(),
+        body: JSON.stringify(email),
+      });
+      setUser(data);
+    } catch (error) {
+      console.error('Error fetching user:', error);
+    }
+  };
   
   useEffect(() => {
     if (isLoggedIn) {
       fetchUser();
     }
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    const token = sessionStorage.getItem('userData');
+    console.log(token);
+    
+    if (token) {
+      setIsLoggedIn(true);
+      fetchVKUser();
+      alert('Login successful');
+    }
+  }, []);  
 
   const handleLogin = async (email, password) => {
     try {
@@ -98,6 +127,7 @@ function App() {
     setIsLoggedIn(false);
     localStorage.removeItem('token');
     localStorage.removeItem('user-email');
+    sessionStorage.removeItem('userData');
     alert('Logout successful');
   }
 

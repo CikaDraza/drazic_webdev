@@ -35,7 +35,6 @@ const LoginDialog = ({ isLoading, onClose, handleLogin, email, setEmail, passwor
         // Assuming `data` contains `token` and `email`
         loginUserWithVK(data)
         .then(userData => {
-          console.log('User successfully logged in with VK:', userData);
           // Set user data in sessionStorage or state
           sessionStorage.setItem('userData', JSON.stringify(userData));
         })
