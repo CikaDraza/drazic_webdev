@@ -15,6 +15,7 @@ function App() {
   const [showMenu, setShowMenu] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedVk, setIsLoggedVk] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,49 +50,13 @@ function App() {
       console.error('Error fetching user:', error);
     }
   };
-
-  const fetchVKUser = async (token) => {
-    try {
-
-      const email = `vk_user_${token}@vk.com`;
-      console.log(email);
-      
-      // if (userData && userData.jwtToken) {
-      // // Fetch user data
-      //   const { data } = await axios.get(`https://drazic-webdev-server.vercel.app/api/users/${email}`, {
-      //     method: 'GET',
-      //     headers: { 'Authorization': `Bearer ${token}` },
-      //     body: JSON.stringify(email),
-      //   });
-      //   if (response.status === 200) {
-      //     setUser(data);
-      //     console.log('User data:', data);
-      //   }
-      // }
-    } catch (error) {
-      console.error('Error fetching user:', error);
-    }
-  };
   
   useEffect(() => {
     if (isLoggedIn) {
       fetchUser();
     }
   }, [isLoggedIn]);
-
-  useEffect(() => {
-    const storedData = sessionStorage.getItem('userData');
-    if (storedData) {
-      const { jwtToken, userId } = JSON.parse(storedData);
-      console.log("Retrieved JWT Token:", jwtToken);
-      console.log("Retrieved User ID:", userId);
-      // Set logged in status or perform additional actions
-      // setIsLoggedIn(true);
-      // fetchVKUser(userId, jwtToken);
-    }
-  }, []);
   
-
   const handleLogin = async (email, password) => {
     try {
       const { data } = await axios.post('https://drazic-webdev-server.vercel.app/api/login', {
@@ -123,12 +88,12 @@ function App() {
     handleLogin(email, password);
   };
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem('token');
-  //   if (token) {
-  //     setIsLoggedIn(true);
-  //   }
-  // }, []);
+  useEffect(() => {
+    const storedData = sessionStorage.getItem('userData');
+    if (storedData) {
+      setIsLoggedVk(true);
+    }
+  }, []);
 
   const handleLogout = () => {
     setIsLoggedIn(false);
@@ -220,7 +185,7 @@ function App() {
                       <li><a href="#testimonials">Testimonials</a></li>
                       <li><a href="#contact">Contact</a></li>
                       {
-                        !isLoggedIn ?
+                        !isLoggedIn || !isLoggedVk ?
                         <li>
                           <a href="#" onClick={() => setShowLogin(true)}>Log in</a>
                         </li>

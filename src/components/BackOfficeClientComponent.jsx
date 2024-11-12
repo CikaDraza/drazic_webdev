@@ -29,10 +29,33 @@ const BackOfficeClient = () => {
     } catch (error) {
       console.error('Error fetching user:', error);
     }
-  };
+  };  
+
+  const fetchVKUser = async (userId, jwtToken) => {
+    const { data } = await axios.get(`${API_BASE_URL}/user_vk/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwtToken}`,
+      },
+      body: data,
+    });
+    setUser({
+      name: `vk_user-${userId}`,
+      email: `vk_${userId}@vkontak.vk`
+    });
+  }
   
   useEffect(() => {
       fetchUser();
+  }, []);
+
+  useEffect(() => {
+    const storedData = sessionStorage.getItem('userData');
+    if (storedData) {
+      const { jwtToken, userId } = JSON.parse(storedData);
+      fetchVKUser(userId, jwtToken);
+    }
   }, []);
 
   const fetchTestimonials = async (userEmail) => {    

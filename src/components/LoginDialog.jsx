@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { loginUserWithVK } from '../utils/api/login_user_whit_vk/loginUserWhitVK';
 
 const LoginDialog = ({ isLoading, onClose, handleLogin, email, setEmail, password, setPassword }) => {
   const vkLoginContainerRef = useRef(null);
@@ -32,16 +31,19 @@ const LoginDialog = ({ isLoading, onClose, handleLogin, email, setEmail, passwor
       });
 
       function vkidOnSuccess(data) {
-        console.log("Login Success Data:", data);
         if (data && data.access_token) {
           const userData = {
             jwtToken: data.access_token,
             userId: data.user_id
           };
-          sessionStorage.setItem('userData', JSON.stringify(userData));
-          // alert('Login successful');
-          // // Optionally call a function to update UI or redirect user
-          // fetchUserDetails(userData.userId, userData.jwtToken); // Example function to handle user session
+          loginUserWithVK(userData)
+          .then(userData => {
+            console.log("User logged in successfully:", userData);
+            sessionStorage.setItem('userData', JSON.stringify(userData));  // Storing full user data
+          })
+          .catch(error => {
+            console.error('Error during VK login:', error);
+          });
         } else {
           console.error("Error: No access token received");
         }
