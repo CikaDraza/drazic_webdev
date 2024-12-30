@@ -18,20 +18,12 @@
   box-sizing: border-box;
 }
 
-.loader {
-  position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 20;
-}
-
 .show {
-  display: block;
+  visibility: visible;
 }
 
 .hide {
-  display: none;
+  visibility: hidden;
 }
 
 header {
@@ -584,6 +576,11 @@ section#projects {
     width: 100%;
     .column {
       width: 100%;
+      .wrapper {
+        @include mobile {
+          width: 100%;
+        }
+      }
       .contact-form {
         margin: auto;
         padding: 1.5rem;
@@ -749,7 +746,7 @@ footer {
 .slider-card {
   border-radius: 1rem;
   box-sizing: border-box;
-  height: auto;
+  height: 100%;
   display: flex!important;
   flex-wrap: wrap;
   align-items: stretch;
@@ -894,6 +891,12 @@ footer {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
+    header {
+      position: static;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
     .loader {
       color: #EE9900;
     }
@@ -940,14 +943,21 @@ footer {
 .back-office {
   overflow-x: scroll;
   table {
+    display: flex;
+    flex-wrap: nowrap;
+    tbody {
+      width: 100%;
+    }
     thead, tbody {
+      min-width: 150px;
+      tr {
+        display: flex;
+        flex-direction: column;
+      }
       th {
-        max-width: 300px;
-        min-width: 300px;
+        width: auto;
       }
       td {
-        max-width: 300px;
-        min-width: 300px;
         overflow: hidden;
         input {
           width: 100%;
@@ -996,6 +1006,14 @@ footer {
     .delete-btn {
       background-color: red;
       color: #f4f4f4;
+    }
+    .preview-row {
+      padding: .5rem;
+      padding-bottom: 1rem;
+    }
+    .create-row {
+      padding: .5rem;
+      margin-top: 2rem;
     }
   }
 }

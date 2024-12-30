@@ -124,17 +124,6 @@ const BackOfficeClient = () => {
   return (
     <div className='back-office'>
       <table>
-        <thead>
-          <tr>
-            <th>Client Title</th>
-            <th>Client Email</th>
-            <th>Client Name</th>
-            <th>Text</th>
-            <th>Image URL</th>
-            <th>Rating</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
         <tbody>
           {testimonials.map(testimonial => (
             <tr key={testimonial._id}>
@@ -172,7 +161,7 @@ const BackOfficeClient = () => {
           ))}
           {
             editId === null && (
-            <tr>
+            <tr className='create-row'>
               <td><input type="text" name="client_title" value={editTestimonials?.client_title || ''} onChange={handleChange} placeholder="Client Title" /></td>
               <td><input type="text" name="client_email" value={editTestimonials?.client_email || ''} onChange={handleChange} placeholder="Client Email" /></td>
               <td><input type="text" name="client_name" value={editTestimonials?.client_name || ''} onChange={handleChange} placeholder="Client Name" /></td>

@@ -186,7 +186,7 @@ function App() {
                       <li><a href="#testimonials">Testimonials</a></li>
                       <li><a href="#contact">Contact</a></li>
                       {
-                        !isLoggedIn || !isLoggedVk ?
+                        !isLoggedIn ?
                         <li>
                           <a href="#" onClick={() => setShowLogin(true)}>Log in</a>
                         </li>

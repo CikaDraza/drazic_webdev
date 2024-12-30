@@ -59,9 +59,11 @@ const LoginDialog = ({ isLoading, onClose, handleLogin, email, setEmail, passwor
   return (
     <div className="login-dialog">
       <div className="login-dialog-content">
-        <span className={`loader ${isLoading ? 'show' : 'hide'}`}>Please wait...</span>
-        <button onClick={onClose} className="close-btn">X</button>
-        <h3>Login</h3>
+        <header>
+          <span className={`loader ${isLoading ? 'show' : 'hide'}`}>Please wait...</span>
+          <button onClick={onClose} className="close-btn">X</button>
+          <h3>Login</h3>
+        </header>
         <form onSubmit={handleLogin}>
           <input
             type="email"

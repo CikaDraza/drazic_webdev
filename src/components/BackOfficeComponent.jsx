@@ -75,22 +75,9 @@ const BackOffice = () => {
   return (
     <div className='back-office'>
       <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Colors</th>
-            <th>Image URL</th>
-            <th>Logo URL</th>
-            <th>Live Preview URL</th>
-            <th>GitHub URL</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
         <tbody>
           {projects.map(project => (
-            <tr key={project._id}>
+            <tr key={project._id} className='preview-row'>
               <td>{editId === project._id ? <input type="text" name="title" value={editProject?.title} onChange={handleChange} /> : project.title}</td>
               <td>{editId === project._id ? <input type="text" name="description" value={editProject?.description} onChange={handleChange} /> : project.description}</td>
               <td>
@@ -130,7 +117,7 @@ const BackOffice = () => {
             </tr>
           ))}
           {editId === null && (
-            <tr>
+            <tr className='create-row'>
               <td><input type="text" name="title" value={editProject?.title || ''} onChange={handleChange} placeholder="Title" /></td>
               <td><input type="text" name="description" value={editProject?.description || ''} onChange={handleChange} placeholder="Description" /></td>
               <td>
